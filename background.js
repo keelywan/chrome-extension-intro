@@ -14,16 +14,16 @@ chrome.runtime.onInstalled.addListener(function() {
 })
 
 chrome.identity.getAuthToken({
-    interactive: true
+  interactive: true
 }, function(token) {
-    if (chrome.runtime.lastError) {
-        alert(chrome.runtime.lastError.message);
-        return;
-    }
-    var x = new XMLHttpRequest();
-    x.open('GET', 'https://www.googleapis.com/oauth2/v2/userinfo?alt=json&access_token=' + token);
-    x.onload = function() {
-        alert(x.response);
-    };
-    x.send();
+  if (chrome.runtime.lastError) {
+      alert(chrome.runtime.lastError.message);
+      return;
+  }
+  var x = new XMLHttpRequest();
+  x.open('GET', 'https://www.googleapis.com/oauth2/v2/userinfo?alt=json&access_token=' + token);
+  x.onload = function() {
+      alert(x.response);
+  };
+  x.send();
 });
