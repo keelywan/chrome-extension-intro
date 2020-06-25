@@ -3,7 +3,7 @@
 	"name": "Getting Started Example",
 	"version": "1.0",
 	"description": "Build an Extension!",
-  "permissions": ["activeTab", "declarativeContent", "storage", "identity"],
+  "permissions": ["activeTab", "declarativeContent", "storage", "identity", "https://www.googleapis.com/*"],
 	"background": {
 		"scripts": ["background.js"],
 		"persistent": false
@@ -27,6 +27,10 @@
 	"manifest_version": 2,
   "oauth2": {
     "client_id": "1005120763196-qiv2jflnrg8or8c84q43rtv8cgcphgs7.apps.googleusercontent.com",
-    "scopes": ["https://www.googleapis.com/auth/userinfo.email"]
+    "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email", 
+      "https://www.googleapis.com/auth/drive.appdata", 
+      "https://www.googleapis.com/auth/drive.file"
+    ]
   }
 }

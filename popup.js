@@ -12,12 +12,35 @@ chrome.identity.getAuthToken({
       alert(chrome.runtime.lastError.message);
       return;
   }
-  var x = new XMLHttpRequest();
-  x.open('GET', 'https://www.googleapis.com/oauth2/v2/userinfo?alt=json&access_token=' + token);
-  x.onload = function() {
-      alert(x.response);
+  // var x = new XMLHttpRequest();
+  // x.open('GET', 'https://www.googleapis.com/oauth2/v2/userinfo?alt=json&access_token=' + token);
+  // x.onload = function() {
+  //     alert(x.response);
+  // };
+  // x.send();
+  var metadata = {
+    name: 'foo-bar.json',
+    mimeType: 'application/json',
+    parents: ['appDataFolder'],
   };
-  x.send();
+  var fileContent = {
+    foo: 'bar'
+  };
+  var file = new Blob([JSON.stringify(fileContent)], {type: 'application/json'});
+  var form = new FormData();
+  form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+  form.append('file', file);
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart');
+  xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+  xhr.responseType = 'json';
+  xhr.onload = () => {
+      var fileId = xhr.response.id;
+      /* Do something with xhr.response */
+      alert(xhr.response);
+  };
+  xhr.send(form);
 });
 
 changeColor.onclick = function(element) {
