@@ -44,7 +44,9 @@ var xhr = new XMLHttpRequest();
 xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
 xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
 xhr.responseType = 'json';
+console.log("sending");
 xhr.onload = () => {
+    console.log(xhr.response);
     alert(xhr.response.id); // Retrieve uploaded file ID.
 };
 xhr.send(form);
