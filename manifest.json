@@ -5,6 +5,7 @@
 	"description": "Build an Extension!",
   "permissions": ["activeTab", "declarativeContent", "storage", "identity", "https://www.googleapis.com/*"],
 	"background": {
+    "page": "background.html",
 		"scripts": ["background.js"],
 		"persistent": false
 	},
