@@ -13,10 +13,15 @@ chrome.runtime.onInstalled.addListener(function() {
   });
 })
 
+chrome.identity.getAuthToken({interactive: true}, function(token) {
+  console.log('got the token', token);
+})
+
 const API_KEY = 'AIzaSyAed5yuxCNrXlEFAqSoWwAQpE3Ng95Tzl8';
 const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
 
 function onGAPILoad() {
+  console.log("function called");
   gapi.client.init({
     // Don't pass client nor scope as these will init auth2, which we don't want
     apiKey: API_KEY,
