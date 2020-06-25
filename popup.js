@@ -38,7 +38,8 @@ chrome.identity.getAuthToken({
   xhr.onload = () => {
       var fileId = xhr.response.id;
       /* Do something with xhr.response */
-      alert(xhr.response);
+      console.log(xhr.response);
+      console.log(fileId);
   };
   xhr.send(form);
 });
