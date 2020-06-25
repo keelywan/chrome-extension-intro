@@ -13,43 +13,43 @@ chrome.runtime.onInstalled.addListener(function() {
   });
 })
 
-// const API_KEY = 'API_KEY_FROM_PREVIOUS_STEP';
-// const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+const API_KEY = 'AIzaSyAed5yuxCNrXlEFAqSoWwAQpE3Ng95Tzl8';
+const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
 
-// function onGAPILoad() {
-//   gapi.client.init({
-//     // Don't pass client nor scope as these will init auth2, which we don't want
-//     apiKey: API_KEY,
-//     discoveryDocs: DISCOVERY_DOCS,
-//   }).then(function () {
-//     console.log('gapi initialized')
-//   }, function(error) {
-//     console.log('error', error)
-//   });
-// }
+function onGAPILoad() {
+  gapi.client.init({
+    // Don't pass client nor scope as these will init auth2, which we don't want
+    apiKey: API_KEY,
+    discoveryDocs: DISCOVERY_DOCS,
+  }).then(function () {
+    console.log('gapi initialized')
+  }, function(error) {
+    console.log('error', error)
+  });
+}
 
-var fileContent = 'sample text'; // As a sample, upload a text file.
-var file = new Blob([fileContent], {type: 'text/plain'});
-var metadata = {
-    'name': 'sampleName', // Filename at Google Drive
-    'mimeType': 'text/plain', // mimeType at Google Drive
-};
+// var fileContent = 'sample text'; // As a sample, upload a text file.
+// var file = new Blob([fileContent], {type: 'text/plain'});
+// var metadata = {
+//     'name': 'sampleName', // Filename at Google Drive
+//     'mimeType': 'text/plain', // mimeType at Google Drive
+// };
 
-var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
-var form = new FormData();
-form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
-form.append('file', file);
+// var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
+// var form = new FormData();
+// form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+// form.append('file', file);
 
-var xhr = new XMLHttpRequest();
-xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
-xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-xhr.responseType = 'json';
-console.log("sending");
-xhr.onload = () => {
-    console.log(xhr.response);
-    alert(xhr.response.id); // Retrieve uploaded file ID.
-};
-xhr.send(form);
+// var xhr = new XMLHttpRequest();
+// xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
+// xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+// xhr.responseType = 'json';
+// console.log("sending");
+// xhr.onload = () => {
+//     console.log(xhr.response);
+//     alert(xhr.response.id); // Retrieve uploaded file ID.
+// };
+// xhr.send(form);
 
 // chrome.identity.getAuthToken({
 //   interactive: true
