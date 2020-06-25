@@ -26,6 +26,7 @@
   "options_page": "options.html",
 	"manifest_version": 2,
   "oauth2": {
-    "client_id": "1005120763196-qiv2jflnrg8or8c84q43rtv8cgcphgs7.apps.googleusercontent.com"
+    "client_id": "1005120763196-qiv2jflnrg8or8c84q43rtv8cgcphgs7.apps.googleusercontent.com",
+    "scopes": ["profile"]
   }
 }
