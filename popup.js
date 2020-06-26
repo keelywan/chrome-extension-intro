@@ -90,8 +90,7 @@ function onGAPILoad() {
     // Don't pass client nor scope as these will init auth2, which we don't want
     apiKey: API_KEY,
     discoveryDocs: DISCOVERY_DOCS,
-  }).then(function () {
-    const docID = document.getElementById('docid').value;
+  }).then(function () {    
     console.log('gapi initialized')
     console.log(gapi.client);
     chrome.identity.getAuthToken({interactive: true}, function(token) {
@@ -112,4 +111,23 @@ function onGAPILoad() {
   }, function(error) {
     console.log('error', error)
   });
+}
+
+function getDoc() {
+  const docID = document.getElementById('docid').value;
+  chrome.identity.getAuthToken({interactive: true}, function(token) {
+      gapi.auth.setToken({
+        'access_token': token,
+      });
+
+      gapi.client.docs.documents.get({
+        documentId: docID,
+      }).then(function(response) {
+        let doc = response.result;
+        let title = doc.title;
+        console.log('Document ' + title + ' successfully found.');
+        document.getElementById('output').innerHTML = title;
+        // console.log(`Got ${response.result.values.length} rows back`)
+      });
+    })
 }
