@@ -19,7 +19,7 @@ chrome.identity.getAuthToken({interactive: true}, function(token) {
 
 const API_KEY = 'AIzaSyAed5yuxCNrXlEFAqSoWwAQpE3Ng95Tzl8';
 const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
-const SPREADSHEET_ID = '1ST0bASv4SwdhK8610W5YEMtTkpB0DBWAr42LsbI8BRg';
+const SPREADSHEET_ID = '1jgrHb-aN2WjteuSuzfOQQ_vtMY728zwZzeHjjgbZMAY';
 const SPREADSHEET_TAB_NAME = 'Sheet1';
 
 function onGAPILoad() {
@@ -35,11 +35,13 @@ function onGAPILoad() {
         'access_token': token,
       });
 
-      gapi.client.sheets.spreadsheets.values.get({
-        spreadsheetId: SPREADSHEET_ID,
-        range: SPREADSHEET_TAB_NAME,
+      gapi.client.docs.documents.get({
+        documentId: SPREADSHEET_ID,
       }).then(function(response) {
-        console.log(`Got ${response.result.values.length} rows back`)
+        let doc = response.result;
+        let title = doc.title;
+        console.log('Document ' + title + ' successfully found.');
+        // console.log(`Got ${response.result.values.length} rows back`)
       });
     })
   }, function(error) {
