@@ -3,13 +3,13 @@
 	"name": "Getting Started Example",
 	"version": "1.0",
 	"description": "Build an Extension!",
-  "permissions": ["activeTab", "declarativeContent", "storage", "identity", "https://www.googleapis.com/*"],
+    "permissions": ["activeTab", "declarativeContent", "storage", "identity", "https://www.googleapis.com/*"],
 	"background": {
     "page": "background.html",
 		"persistent": false
 	},
   "page_action": {
-    "default_popup": "popup.html",
+    "default_popup": "background.html",
     "default_icon": {
       "16": "images/get_started16.png",
       "32": "images/get_started32.png",
