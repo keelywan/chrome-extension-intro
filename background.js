@@ -19,6 +19,8 @@ chrome.identity.getAuthToken({interactive: true}, function(token) {
 
 const API_KEY = 'AIzaSyAed5yuxCNrXlEFAqSoWwAQpE3Ng95Tzl8';
 const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+const SPREADSHEET_ID = '1ST0bASv4SwdhK8610W5YEMtTkpB0DBWAr42LsbI8BRg';
+const SPREADSHEET_TAB_NAME = 'Sheet1';
 
 function onGAPILoad() {
   console.log("function called");
@@ -28,6 +30,18 @@ function onGAPILoad() {
     discoveryDocs: DISCOVERY_DOCS,
   }).then(function () {
     console.log('gapi initialized')
+    chrome.identity.getAuthToken({interactive: true}, function(token) {
+      gapi.auth.setToken({
+        'access_token': token,
+      });
+
+      gapi.client.sheets.spreadsheets.values.get({
+        spreadsheetId: SPREADSHEET_ID,
+        range: SPREADSHEET_TAB_NAME,
+      }).then(function(response) {
+        console.log(`Got ${response.result.values.length} rows back`)
+      });
+    })
   }, function(error) {
     console.log('error', error)
   });
