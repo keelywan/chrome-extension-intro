@@ -84,7 +84,7 @@ const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v
 const SPREADSHEET_ID = '1jgrHb-aN2WjteuSuzfOQQ_vtMY728zwZzeHjjgbZMAY';
 const SPREADSHEET_TAB_NAME = 'Sheet1';
 
-function getDoc() {
+function onGAPILoad() {
   console.log("function called");
   gapi.client.init({
     // Don't pass client nor scope as these will init auth2, which we don't want
@@ -100,7 +100,7 @@ function getDoc() {
       });
 
       gapi.client.docs.documents.get({
-        documentId: docID,
+        documentId: SPREADSHEET_ID,
       }).then(function(response) {
         let doc = response.result;
         let title = doc.title;
