@@ -31,7 +31,8 @@
       "https://www.googleapis.com/auth/userinfo.email", 
       "https://www.googleapis.com/auth/drive.appdata", 
       "https://www.googleapis.com/auth/drive.file",
-      "https://www.googleapis.com/auth/spreadsheets"
+      "https://www.googleapis.com/auth/spreadsheets",
+      "https://www.googleapis.com/auth/documents.readonly"
     ]
   },
   "content_security_policy": "script-src 'self' https://apis.google.com/; object-src 'self'"
