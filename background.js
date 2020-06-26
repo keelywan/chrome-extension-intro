@@ -18,7 +18,7 @@ chrome.identity.getAuthToken({interactive: true}, function(token) {
 })
 
 const API_KEY = 'AIzaSyAed5yuxCNrXlEFAqSoWwAQpE3Ng95Tzl8';
-const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4", "https://discovery.googleapis.com/$discovery/rest"];
+const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4", "https://docs.googleapis.com/$discovery/rest?version=v1"];
 const SPREADSHEET_ID = '1jgrHb-aN2WjteuSuzfOQQ_vtMY728zwZzeHjjgbZMAY';
 const SPREADSHEET_TAB_NAME = 'Sheet1';
 
