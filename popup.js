@@ -86,6 +86,7 @@ const SPREADSHEET_TAB_NAME = 'Sheet1';
 
 function onGAPILoad() {
   console.log("function called");
+  document.getElementById('get-doc-button').onclick = getDoc;
   gapi.client.init({
     // Don't pass client nor scope as these will init auth2, which we don't want
     apiKey: API_KEY,
