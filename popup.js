@@ -1,9 +1,9 @@
-let changeColor = document.getElementById('changeColor');
+// let changeColor = document.getElementById('changeColor');
 
-chrome.storage.sync.get('color', function(data) {
-  changeColor.style.backgroundColor = data.color;
-  changeColor.setAttribute('value', data.color);
-});
+// chrome.storage.sync.get('color', function(data) {
+//   changeColor.style.backgroundColor = data.color;
+//   changeColor.setAttribute('value', data.color);
+// });
 
 // chrome.identity.getAuthToken({
 //   interactive: true
@@ -44,32 +44,72 @@ chrome.storage.sync.get('color', function(data) {
 //   xhr.send(form);
 // });
 
-changeColor.onclick = function(element) {
-  let color = element.target.value;
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.executeScript(
-        tabs[0].id,
-        {code: 'document.body.style.backgroundColor = "' + color + '";'});
+// changeColor.onclick = function(element) {
+//   let color = element.target.value;
+//   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+//     chrome.tabs.executeScript(
+//         tabs[0].id,
+//         {code: 'document.body.style.backgroundColor = "' + color + '";'});
+//   });
+// };
+
+// var fileContent = 'sample text'; // As a sample, upload a text file.
+// var file = new Blob([fileContent], {type: 'text/plain'});
+// var metadata = {
+//     'name': 'sampleName', // Filename at Google Drive
+//     'mimeType': 'text/plain', // mimeType at Google Drive
+// };
+
+// var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
+// var form = new FormData();
+// form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+// form.append('file', file);
+
+// var xhr = new XMLHttpRequest();
+// xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
+// xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+// xhr.responseType = 'json';
+// xhr.onload = () => {
+//     alert(xhr.response.id); // Retrieve uploaded file ID.
+// };
+// xhr.send(form);
+
+
+chrome.identity.getAuthToken({interactive: true}, function(token) {
+  console.log('got the token', token);
+})
+
+const API_KEY = 'AIzaSyAed5yuxCNrXlEFAqSoWwAQpE3Ng95Tzl8';
+const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4", "https://docs.googleapis.com/$discovery/rest?version=v1"];
+const SPREADSHEET_ID = '1jgrHb-aN2WjteuSuzfOQQ_vtMY728zwZzeHjjgbZMAY';
+const SPREADSHEET_TAB_NAME = 'Sheet1';
+
+function getDoc() {
+  console.log("function called");
+  gapi.client.init({
+    // Don't pass client nor scope as these will init auth2, which we don't want
+    apiKey: API_KEY,
+    discoveryDocs: DISCOVERY_DOCS,
+  }).then(function () {
+    const docID = document.getElementById('docid').value;
+    console.log('gapi initialized')
+    console.log(gapi.client);
+    chrome.identity.getAuthToken({interactive: true}, function(token) {
+      gapi.auth.setToken({
+        'access_token': token,
+      });
+
+      gapi.client.docs.documents.get({
+        documentId: docID,
+      }).then(function(response) {
+        let doc = response.result;
+        let title = doc.title;
+        console.log('Document ' + title + ' successfully found.');
+        document.getElementById('output').innerHTML = title;
+        // console.log(`Got ${response.result.values.length} rows back`)
+      });
+    })
+  }, function(error) {
+    console.log('error', error)
   });
-};
-
-var fileContent = 'sample text'; // As a sample, upload a text file.
-var file = new Blob([fileContent], {type: 'text/plain'});
-var metadata = {
-    'name': 'sampleName', // Filename at Google Drive
-    'mimeType': 'text/plain', // mimeType at Google Drive
-};
-
-var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
-var form = new FormData();
-form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
-form.append('file', file);
-
-var xhr = new XMLHttpRequest();
-xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
-xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-xhr.responseType = 'json';
-xhr.onload = () => {
-    alert(xhr.response.id); // Retrieve uploaded file ID.
-};
-xhr.send(form);
+}
