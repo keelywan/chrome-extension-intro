@@ -13,6 +13,7 @@ function onGAPILoad() {
   // document.getElementById('get-doc-button').onclick = getDoc;
   // document.getElementById('create-doc-button').onclick = createDoc;
   document.getElementById('test-button').onclick = testing;
+  document.getElementById('doc-name-input').value = 'QuickNotes ' + getDate();
   gapi.client.init({
     // Don't pass client nor scope as these will init auth2, which we don't want
     apiKey: API_KEY,
@@ -86,7 +87,7 @@ function testing() {
     });
     let docName = document.getElementById('doc-name-input').value.trim();
     if(docName === "") {
-      docName = 'Quicknotes ' + getDate();
+      docName = 'QuickNotes ' + getDate();
     }
 
     gapi.client.request({
