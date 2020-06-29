@@ -175,7 +175,7 @@ function createDoc() {
           'fields': "nextPageToken, files(id, name)"
         }).then(function(response) {
           console.log(response);
-          }
+          })
     // gapi.client.drive.files.copy({
     //   fileId: '1PaDD4GLSGAFlG3fzL8nHdaT_fn-HQyZ7bvtWnNkyWtg',
     // }).then(function(response) {
