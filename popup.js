@@ -701,8 +701,10 @@ function createDoc() {
       'access_token': token,
     });
 
-    gapi.client.docs.documents.create({
-      'body': test, 
+    gapi.client.request({
+      path: 'https://docs.googleapis.com/v1/documents',
+      method: 'POST',
+      body: test, 
     }).then(function(response) {
       let doc = response.result;
       let title = doc.title; 
