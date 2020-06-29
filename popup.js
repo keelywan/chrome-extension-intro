@@ -136,8 +136,6 @@
 
 const API_KEY = 'AIzaSyAed5yuxCNrXlEFAqSoWwAQpE3Ng95Tzl8';
 const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4", "https://docs.googleapis.com/$discovery/rest?version=v1", "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
-const SPREADSHEET_ID = '1jgrHb-aN2WjteuSuzfOQQ_vtMY728zwZzeHjjgbZMAY';
-const SPREADSHEET_TAB_NAME = 'Sheet1';
 
 const CLIENT_ID = "1005120763196-qiv2jflnrg8or8c84q43rtv8cgcphgs7.apps.googleusercontent.com";
 const SCOPES = [
@@ -151,9 +149,11 @@ const SCOPES = [
       "https://www.googleapis.com/auth/documents"
     ]
 
-function handleClientLoad() {
-  gapi.load('client:auth2', initClient); 
-  console.log("loaded");
+function init() {
+  gapi.load('auth2', function() {
+    console.log('loaded');
+    initClient();
+  }); 
 }
 
 let authorizeButton = document.getElementById('authorize_button');
