@@ -704,6 +704,7 @@ function createDoc() {
 
     today = mm + '/' + dd + '/' + yyyy;
     jsonBody.title = 'Notes Template ' + today;
+    console.log(jsonBody);
 
     gapi.client.request({
       path: 'https://docs.googleapis.com/v1/documents',
@@ -716,7 +717,7 @@ function createDoc() {
       document.getElementById('output2').innerHTML = title;
       const newURL = "https://docs.google.com/document/d/" + doc.documentId;
       console.log(newURL);
-      chrome.tabs.create({ url: newURL });
+      // chrome.tabs.create({ url: newURL });
     })
   })
 }
