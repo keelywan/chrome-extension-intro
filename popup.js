@@ -7,16 +7,19 @@ const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v
 
 const CLIENT_ID = "1005120763196-qiv2jflnrg8or8c84q43rtv8cgcphgs7.apps.googleusercontent.com";
 const SCOPES = [
-      "https://www.googleapis.com/auth/userinfo.email", 
-      "https://www.googleapis.com/auth/drive.appdata", 
-      'https://www.googleapis.com/auth/drive',
-      'https://www.googleapis.com/auth/drive.file',
-      'https://www.googleapis.com/auth/drive.metadata',
-      "https://www.googleapis.com/auth/spreadsheets",
-      "https://www.googleapis.com/auth/documents.readonly",
-      "https://www.googleapis.com/auth/documents"
-    ]
+  "https://www.googleapis.com/auth/userinfo.email", 
+  "https://www.googleapis.com/auth/drive.appdata", 
+  'https://www.googleapis.com/auth/drive',
+  'https://www.googleapis.com/auth/drive.file',
+  'https://www.googleapis.com/auth/drive.metadata',
+  "https://www.googleapis.com/auth/spreadsheets",
+  "https://www.googleapis.com/auth/documents.readonly",
+  "https://www.googleapis.com/auth/documents"
+]
 
+const NOTES_TEMPLATE_ID = '1XlcAy-vrleXBxJl5Qy_SxGUyTqcwdUIhyJI2BygpNEc';
+
+/** Initializes gapi and the button functions when script is loaded. */
 function onGAPILoad() {
   console.log("function called");
   document.getElementById('get-doc-button').onclick = getDoc;
@@ -33,7 +36,7 @@ function onGAPILoad() {
     chrome.identity.getAuthToken({interactive: true}, function(token) {
       console.log(token);
       gapi.auth.setToken({
-        'access_token': token,
+        access_token: token,
       });
     })
   }, function(error) {
@@ -41,46 +44,36 @@ function onGAPILoad() {
   });
 }
 
+/** Returns the document with the given document ID. */
 function getDoc() {
   const docID = document.getElementById('docid').value;
   chrome.identity.getAuthToken({interactive: true}, function(token) {
-    if(chrome.runtime.lastError) {
-      console.log("ERROR");
-      console.log(chrome.runtime.lastError.message);
-    } else {
-      gapi.auth.setToken({
-        'access_token': token,
-      });
-      gapi.client.docs.documents.get({
-        documentId: docID,
-      }).then(function(response) {
-        let doc = response.result;
-        let title = doc.title;
-        console.log('Document ' + title + ' successfully found.');
-        document.getElementById('output').innerHTML = title;
-        // console.log(`Got ${response.result.values.length} rows back`)
-      });
-    }
+    gapi.auth.setToken({
+      access_token: token,
+    });
+    gapi.client.docs.documents.get({
+      documentId: docID,
+    }).then(function(response) {
+      let doc = response.result;
+      let title = doc.title;
+      console.log('Document ' + title + ' successfully found.');
+      document.getElementById('output').innerHTML = title;
+      // console.log(`Got ${response.result.values.length} rows back`)
+    });
   })
 }
 
+/** Creates a new document named QuickNotes + 'date' then redirects to that page. */
 function createDoc() {
   chrome.identity.getAuthToken({interactive: true}, function(token) {
     gapi.auth.setToken({
-      'access_token': token,
+      access_token: token,
     });
 
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
-
-    today = mm + '/' + dd + '/' + yyyy;
+    const date = getDate();
     const jsonBody = {
-      'title': 'QuickNotes ' + today,
+      title: 'QuickNotes ' + date,
     };
-    // jsonBody.title = 'Notes Template ' + today;
-    // console.log(jsonBody);
 
     gapi.client.request({
       path: 'https://docs.googleapis.com/v1/documents',
@@ -95,63 +88,39 @@ function createDoc() {
       console.log(newURL);
       // chrome.tabs.create({ url: newURL });
     })
-      // gapi.client.drive.files.list({
-      //     'pageSize': 10,
-      //     'fields': "nextPageToken, files(id, name)"
-      //   }).then(function(response) {
-      //     console.log(response);
-      //     })
-    // gapi.client.drive.files.copy({
-    //   fileId: '1PaDD4GLSGAFlG3fzL8nHdaT_fn-HQyZ7bvtWnNkyWtg',
-    // }).then(function(response) {
-    //   console.log(response);
-    // });
   })
 }
 
+/** Makes a copy of the notes template. */
 function testing() {
   chrome.identity.getAuthToken({interactive: true}, function(token) {
     gapi.auth.setToken({
-      'access_token': token,
+      access_token: token,
     });
 
+    const date = getDate(); 
     gapi.client.request({
       path: 'https://www.googleapis.com/drive/v3/files/fileId/copy',
       method: 'POST',
-      params: {'fileId': '1XlcAy-vrleXBxJl5Qy_SxGUyTqcwdUIhyJI2BygpNEc'}
+      params: {fileId: NOTES_TEMPLATE_ID},
+      body: {
+        name: 'Quicknotes ' + date,
+      }
     }).then(function(response) {
       console.log(response);
+      const newURL = "https://docs.google.com/document/d/" + response.id;
+      console.log(newURL);
+      chrome.tabs.create({url: newURL });
     })
   })
-    // gapi.client.request({
-    //   path: 'https://www.googleapis.com/drive/v3/about',
-    //   params: {'fields': '*'},
-    // }).then(function(response) {
-    //   console.log(response);
-    //   console.log(response.result);
-    // })
-    // gapi.client.request({
-    //   path: 'https://www.googleapis.com/drive/v3/files'
-    // }).then(function(response) {
-    //   console.log('Get Files');
-    //   console.log(response);
-    // })
 }
 
-function logout() {
-  chrome.identity.launchWebAuthFlow(
-    { interactive: true, url: 'https://accounts.google.com/logout' },
-    function(tokenUrl) {
-      if (chrome.runtime.lastError) {
-        console.log(chrome.runtime.lastError.message);
-      } else {
-          console.log("logged out");
-      }
-    })
-}
+/** Returns formatted string of today's date. */
+function getDate() {
+  let today = new Date();
+  const dd = String(today.getDate()).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  const yyyy = today.getFullYear();
 
-chrome.identity.onSignInChanged.addListener(function(account, signedIn) {
-  console.log(account); 
-  console.log(signedIn);
-  console.log("Sign in status changed"); 
-})
+  return mm + '/' + dd + '/' + yyyy;
+}
