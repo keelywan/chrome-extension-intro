@@ -10,8 +10,8 @@ const NOTES_TEMPLATE_ID = '1XlcAy-vrleXBxJl5Qy_SxGUyTqcwdUIhyJI2BygpNEc';
 /** Initializes gapi and the button functions when script is loaded. */
 function onGAPILoad() {
   console.log("function called");
-  document.getElementById('get-doc-button').onclick = getDoc;
-  document.getElementById('create-doc-button').onclick = createDoc;
+  // document.getElementById('get-doc-button').onclick = getDoc;
+  // document.getElementById('create-doc-button').onclick = createDoc;
   document.getElementById('test-button').onclick = testing;
   gapi.client.init({
     // Don't pass client nor scope as these will init auth2, which we don't want
@@ -84,14 +84,17 @@ function testing() {
     gapi.auth.setToken({
       access_token: token,
     });
+    let docName = document.getElementById('doc-name-input').value.trim();
+    if(docName === "") {
+      docName = 'Quicknotes ' + getDate();
+    }
 
-    const date = getDate(); 
     gapi.client.request({
       path: 'https://www.googleapis.com/drive/v3/files/fileId/copy',
       method: 'POST',
       params: {fileId: NOTES_TEMPLATE_ID},
       body: {
-        name: 'Quicknotes ' + date,
+        name: 'Quicknotes ' + docName,
       }
     }).then(function(response) {
       console.log(response);

@@ -1,10 +1,11 @@
 body {
   margin: 0;
+  min-width: 350px;
 }
 
 #header-background {
   background-color: #004aad;
-  height: 45px;
+  height: 65px;
   position: absolute;
   top: 0;
   width: 100%;
@@ -16,12 +17,18 @@ body {
   color: white;
   display: flex;
   font: bold 1.75rem 'Roboto', sans-serif;
-  height: 45px;
+  height: 65px;
+  padding: 0 10px;
   position: relative;
   top: 0;
   width: 100%;
 }
 
+#doc-name-input {
+  margin: 5px 5px 0 5px;
+}
+
 button {
+  margin: 0px 5px 5px 5px;
   padding: 5px 10px;
 }
