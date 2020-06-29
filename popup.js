@@ -691,6 +691,10 @@ const jsonBody =
   },
 }; 
 
+var test = {
+  "title": "Testing 1-2-3",
+}
+
 function createDoc() {
   chrome.identity.getAuthToken({interactive: true}, function(token) {
     gapi.auth.setToken({
@@ -698,7 +702,7 @@ function createDoc() {
     });
 
     gapi.client.docs.documents.create({
-      'body': jsonBody, 
+      'body': test, 
     }).then(function(response) {
       let doc = response.result;
       let title = doc.title; 
