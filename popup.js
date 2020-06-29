@@ -698,7 +698,7 @@ function createDoc() {
     });
 
     gapi.client.docs.documents.create({
-      body: jsonBody, 
+      'body': jsonBody, 
     }).then(function(response) {
       let doc = response.result;
       let title = doc.title; 
