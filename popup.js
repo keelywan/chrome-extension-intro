@@ -203,5 +203,4 @@ function getDoc() {
       document.getElementById('output').innerHTML = title;
       // console.log(`Got ${response.result.values.length} rows back`)
     });
-  })
 }
