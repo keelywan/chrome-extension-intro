@@ -116,13 +116,13 @@ function createDoc() {
 }
 
 function testing() {
-    // gapi.client.request({
-    //   path: 'https://www.googleapis.com/drive/v3/files/fileId/copy',
-    //   method: 'POST',
-    //   params: {'fileId': '1PaDD4GLSGAFlG3fzL8nHdaT_fn-HQyZ7bvtWnNkyWtg'}
-    // }).then(function(response) {
-    //   console.log(response);
-    // })
+    gapi.client.request({
+      path: 'https://www.googleapis.com/drive/v3/files/fileId/copy',
+      method: 'POST',
+      params: {'fileId': '1XlcAy-vrleXBxJl5Qy_SxGUyTqcwdUIhyJI2BygpNEc'}
+    }).then(function(response) {
+      console.log(response);
+    })
     // gapi.client.request({
     //   path: 'https://www.googleapis.com/drive/v3/about',
     //   params: {'fields': '*'},
@@ -130,12 +130,12 @@ function testing() {
     //   console.log(response);
     //   console.log(response.result);
     // })
-    gapi.client.request({
-      path: 'https://www.googleapis.com/drive/v3/files'
-    }).then(function(response) {
-      console.log('Get Files');
-      console.log(response);
-    })
+    // gapi.client.request({
+    //   path: 'https://www.googleapis.com/drive/v3/files'
+    // }).then(function(response) {
+    //   console.log('Get Files');
+    //   console.log(response);
+    // })
 }
 
 function logout() {
