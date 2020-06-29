@@ -713,7 +713,8 @@ function createDoc() {
     }).then(function(response) {
       let doc = response.result;
       let title = doc.title; 
-      console.log('Created ' + doc);
+      console.log('Created');
+      console.log(doc);
       document.getElementById('output2').innerHTML = title;
       const newURL = "https://docs.google.com/document/d/" + doc.documentId;
       console.log(newURL);
