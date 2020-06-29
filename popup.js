@@ -146,8 +146,8 @@ function createDoc() {
     var yyyy = today.getFullYear();
 
     today = mm + '/' + dd + '/' + yyyy;
-    jsonBody.title = 'Notes Template ' + today;
-    console.log(jsonBody);
+    // jsonBody.title = 'Notes Template ' + today;
+    // console.log(jsonBody);
 
     // gapi.client.request({
     //   path: 'https://docs.googleapis.com/v1/documents',
