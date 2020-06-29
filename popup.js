@@ -137,6 +137,10 @@ function logout() {
   chrome.identity.launchWebAuthFlow(
     { 'url': 'https://accounts.google.com/logout' },
     function(tokenUrl) {
-      console.log("logged out");
+      if (chrome.runtime.lastError) {
+        console.log(chrome.runtime.lastError.message);
+      } else {
+          console.log("logged out");
+      }
     })
 }
