@@ -171,7 +171,7 @@ function createDoc() {
     // })
     gapi.client.request({
       path: 'https://www.googleapis.com/drive/v3/about',
-      fields: '*'
+      params: {'fields': '*'},
     }).then(function(response) {
       console.log(response);
       console.log(response.result);
