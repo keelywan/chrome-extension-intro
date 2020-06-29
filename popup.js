@@ -163,12 +163,19 @@ function createDoc() {
     //   console.log(newURL);
     //   // chrome.tabs.create({ url: newURL });
     // })
-    gapi.client.request({
-      path: 'https://www.googleapis.com/drive/v2/files/1PaDD4GLSGAFlG3fzL8nHdaT_fn-HQyZ7bvtWnNkyWtg/copy',
-      method: 'POST'
-    }).then(function(response) {
-      console.log(response);
-    })
+    // gapi.client.request({
+    //   path: 'https://www.googleapis.com/drive/v2/files/1PaDD4GLSGAFlG3fzL8nHdaT_fn-HQyZ7bvtWnNkyWtg/copy',
+    //   method: 'POST'
+    // }).then(function(response) {
+    //   console.log(response);
+    // })
+
+      gapi.client.drive.files.list({
+          'pageSize': 10,
+          'fields': "nextPageToken, files(id, name)"
+        }).then(function(response) {
+          console.log(response);
+          }
     // gapi.client.drive.files.copy({
     //   fileId: '1PaDD4GLSGAFlG3fzL8nHdaT_fn-HQyZ7bvtWnNkyWtg',
     // }).then(function(response) {
