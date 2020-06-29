@@ -153,6 +153,7 @@ const SCOPES = [
 
 function onGAPILoad() {
   gapi.load('client:auth2', initClient); 
+  console.log("loaded");
 }
 
 let authorizeButton = document.getElementById('authorize_button');
@@ -164,6 +165,7 @@ function initClient() {
     discoveryDocs: DISCOVERY_DOCS,
     scope: SCOPES
   }).then(function() {
+    console.log("gapi initialized")
     gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
     document.getElementById('get-doc-button').onclick = getDoc;
 
