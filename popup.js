@@ -135,7 +135,7 @@ function testing() {
 
 function logout() {
   chrome.identity.launchWebAuthFlow(
-    { 'url': 'https://accounts.google.com/logout' },
+    { interactive: true, url: 'https://accounts.google.com/logout' },
     function(tokenUrl) {
       if (chrome.runtime.lastError) {
         console.log(chrome.runtime.lastError.message);
