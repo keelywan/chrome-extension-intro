@@ -3,7 +3,7 @@
 	"name": "Getting Started Example",
 	"version": "1.0",
 	"description": "Build an Extension!",
-    "permissions": ["activeTab", "declarativeContent", "storage", "identity", "https://www.googleapis.com/*"],
+    "permissions": ["activeTab", "declarativeContent", "storage", "identity", "https://www.googleapis.com/*", "tabs"],
 	"background": {
     "page": "background.html",
 		"persistent": false

@@ -697,13 +697,13 @@ function createDoc() {
       'access_token': token,
     });
 
-  var today = new Date();
-  var dd = String(today.getDate()).padStart(2, '0');
-  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-  var yyyy = today.getFullYear();
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
 
-  today = mm + '/' + dd + '/' + yyyy;
-  jsonBody.title = 'Notes Template ' + today;
+    today = mm + '/' + dd + '/' + yyyy;
+    jsonBody.title = 'Notes Template ' + today;
 
     gapi.client.request({
       path: 'https://docs.googleapis.com/v1/documents',
@@ -714,6 +714,9 @@ function createDoc() {
       let title = doc.title; 
       console.log('Created ' + doc);
       document.getElementById('output2').innerHTML = title;
+      const newURL = "docs.google.com/document/d/" + doc.documentId;
+      console.log(newURL);
+      chrome.tabs.create({ url: newURL });
     })
   })
 }
