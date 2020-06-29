@@ -25,7 +25,6 @@ function onGAPILoad() {
   document.getElementById('get-doc-button').onclick = getDoc;
   document.getElementById('create-doc-button').onclick = createDoc;
   document.getElementById('test-button').onclick = testing;
-  document.getElementById('logout-button').onclick = logout;
   gapi.client.init({
     // Don't pass client nor scope as these will init auth2, which we don't want
     apiKey: API_KEY,
@@ -110,7 +109,7 @@ function testing() {
       console.log(response);
       const newURL = "https://docs.google.com/document/d/" + response.id;
       console.log(newURL);
-      chrome.tabs.create({url: newURL });
+      // chrome.tabs.create({url: newURL });
     })
   })
 }
