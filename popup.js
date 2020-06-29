@@ -138,5 +138,5 @@ function logout() {
     { 'url': 'https://accounts.google.com/logout' },
     function(tokenUrl) {
       console.log("logged out");
-    }
+    })
 }
