@@ -151,14 +151,14 @@ const SCOPES = [
       "https://www.googleapis.com/auth/documents"
     ]
 
-// function onGAPILoad() {
-//   gapi.load('client:auth2', initClient); 
-//   console.log("loaded");
-// }
+function handleClientLoad() {
+  gapi.load('client:auth2', initClient); 
+  console.log("loaded");
+}
 
 let authorizeButton = document.getElementById('authorize_button');
 let signoutButton = document.getElementById('signout_button');
-function onGAPILoad() {
+function initClient() {
   gapi.client.init({
     apiKey: API_KEY,
     clientId: CLIENT_ID,
