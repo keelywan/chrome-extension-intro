@@ -31,6 +31,7 @@ function onGAPILoad() {
     console.log('gapi initialized')
     console.log(gapi.client);
     chrome.identity.getAuthToken({interactive: true}, function(token) {
+      console.log(token);
       gapi.auth.setToken({
         'access_token': token,
       });
