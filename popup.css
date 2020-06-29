@@ -32,14 +32,16 @@ body {
 }
 
 main {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   margin: 20px 10px; 
 }
 
 #doc-name-input {
   font: 1.25rem 'Roboto';
+  margin: 5px 0;
+  padding: 5px 10px;
 }
 
 button {
