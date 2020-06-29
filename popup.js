@@ -164,9 +164,9 @@ function createDoc() {
     //   // chrome.tabs.create({ url: newURL });
     // })
     gapi.client.drive.files.copy({
-      'fileId': '1PaDD4GLSGAFlG3fzL8nHdaT_fn-HQyZ7bvtWnNkyWtg',
+      fileId: '1PaDD4GLSGAFlG3fzL8nHdaT_fn-HQyZ7bvtWnNkyWtg',
     }).then(function(response) {
       console.log(response);
-    })
+    });
   })
 }
