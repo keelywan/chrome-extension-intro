@@ -116,6 +116,11 @@ function createDoc() {
 }
 
 function testing() {
+  chrome.identity.getAuthToken({interactive: true}, function(token) {
+    gapi.auth.setToken({
+      'access_token': token,
+    });
+
     gapi.client.request({
       path: 'https://www.googleapis.com/drive/v3/files/fileId/copy',
       method: 'POST',
@@ -123,6 +128,7 @@ function testing() {
     }).then(function(response) {
       console.log(response);
     })
+  })
     // gapi.client.request({
     //   path: 'https://www.googleapis.com/drive/v3/about',
     //   params: {'fields': '*'},
