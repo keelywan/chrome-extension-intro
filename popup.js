@@ -84,7 +84,7 @@ const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v
 const SPREADSHEET_ID = '1jgrHb-aN2WjteuSuzfOQQ_vtMY728zwZzeHjjgbZMAY';
 const SPREADSHEET_TAB_NAME = 'Sheet1';
 
-const CLIENT_ID = "1005120763196-qiv2jflnrg8or8c84q43rtv8cgcphgs7.apps.googleusercontent.com",
+const CLIENT_ID = "1005120763196-qiv2jflnrg8or8c84q43rtv8cgcphgs7.apps.googleusercontent.com";
 const SCOPES = [
       "https://www.googleapis.com/auth/userinfo.email", 
       "https://www.googleapis.com/auth/drive.appdata", 
