@@ -159,7 +159,8 @@ function init() {
 let authorizeButton = document.getElementById('authorize_button');
 let signoutButton = document.getElementById('signout_button');
 function initClient() {
-  gapi.client.init({
+  console.log("called initClient")
+  gapi.auth2.init({
     apiKey: API_KEY,
     clientId: CLIENT_ID,
     discoveryDocs: DISCOVERY_DOCS,
