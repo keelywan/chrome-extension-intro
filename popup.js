@@ -94,7 +94,7 @@ function testing() {
       method: 'POST',
       params: {fileId: NOTES_TEMPLATE_ID},
       body: {
-        name: 'Quicknotes ' + docName,
+        name: docName,
       }
     }).then(function(response) {
       console.log(response);
