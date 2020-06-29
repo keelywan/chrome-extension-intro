@@ -44,19 +44,23 @@ function onGAPILoad() {
 function getDoc() {
   const docID = document.getElementById('docid').value;
   chrome.identity.getAuthToken({interactive: true}, function(token) {
-    gapi.auth.setToken({
-      'access_token': token,
-    });
-
-    gapi.client.docs.documents.get({
-      documentId: docID,
-    }).then(function(response) {
-      let doc = response.result;
-      let title = doc.title;
-      console.log('Document ' + title + ' successfully found.');
-      document.getElementById('output').innerHTML = title;
-      // console.log(`Got ${response.result.values.length} rows back`)
-    });
+    if(chrome.runtime.lastError) {
+      console.log("ERROR");
+      console.log(chrome.runtime.lastError.message);
+    } else {
+      gapi.auth.setToken({
+        'access_token': token,
+      });
+      gapi.client.docs.documents.get({
+        documentId: docID,
+      }).then(function(response) {
+        let doc = response.result;
+        let title = doc.title;
+        console.log('Document ' + title + ' successfully found.');
+        document.getElementById('output').innerHTML = title;
+        // console.log(`Got ${response.result.values.length} rows back`)
+      });
+    }
   })
 }
 
