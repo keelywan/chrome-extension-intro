@@ -133,7 +133,7 @@ function getDoc() {
     });
   })
 }
-const jsonBody = 
+let jsonBody = 
 {
   "title": "Notes Template",
   "body": {
@@ -691,24 +691,29 @@ const jsonBody =
   },
 }; 
 
-var test = {
-  "title": "Testing 1-2-3",
-}
-
 function createDoc() {
   chrome.identity.getAuthToken({interactive: true}, function(token) {
     gapi.auth.setToken({
       'access_token': token,
     });
 
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
+
+  today = mm + '/' + dd + '/' + yyyy;
+  jsonBody.title = 'Notes Template ' + today;
+
     gapi.client.request({
       path: 'https://docs.googleapis.com/v1/documents',
       method: 'POST',
-      body: test, 
+      body: jsonBody, 
     }).then(function(response) {
       let doc = response.result;
       let title = doc.title; 
-      console.log('Created ' + title);
+      console.log('Created ' + doc);
+      document.getElementById('output2').innerHTML = title;
     })
   })
 }
