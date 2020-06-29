@@ -714,7 +714,7 @@ function createDoc() {
       let title = doc.title; 
       console.log('Created ' + doc);
       document.getElementById('output2').innerHTML = title;
-      const newURL = "docs.google.com/document/d/" + doc.documentId;
+      const newURL = "https://docs.google.com/document/d/" + doc.documentId;
       console.log(newURL);
       chrome.tabs.create({ url: newURL });
     })
