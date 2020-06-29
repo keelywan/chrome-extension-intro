@@ -176,6 +176,12 @@ function createDoc() {
       console.log(response);
       console.log(response.result);
     })
+    gapi.client.request({
+      path: 'https://www.googleapis.com/drive/v3/files'
+    }).then(function(response) {
+      console.log('Get Files');
+      console.log(response);
+    })
       // gapi.client.drive.files.list({
       //     'pageSize': 10,
       //     'fields': "nextPageToken, files(id, name)"
