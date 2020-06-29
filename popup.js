@@ -134,7 +134,9 @@ function testing() {
 }
 
 function logout() {
-  chrome.identity.getAuthToken({interactive: true}, function(cur_token) {
-    chrome.identity.removeCachedAuthToken({ token: cur_token }, function() {});
-   });
+  chrome.identity.launchWebAuthFlow(
+    { 'url': 'https://accounts.google.com/logout' },
+    function(tokenUrl) {
+      console.log("logged out");
+    }
 }
