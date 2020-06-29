@@ -107,9 +107,9 @@ function testing() {
       }
     }).then(function(response) {
       console.log(response);
-      const newURL = "https://docs.google.com/document/d/" + response.id;
+      const newURL = "https://docs.google.com/document/d/" + response.result.id;
       console.log(newURL);
-      // chrome.tabs.create({url: newURL });
+      chrome.tabs.create({url: newURL });
     })
   })
 }
