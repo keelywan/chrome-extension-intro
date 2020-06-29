@@ -5,18 +5,14 @@
     </style>
   </head>
   <body>
-    <button id="authorize_button">Authorize</button>
-    <button id="signout_button">Sign Out</button>
     <input type="text" id="docid">
     <button id="get-doc-button">Get Doc</button>
     <span id="output"></span>
-    <div>
-      <button id="create-doc-button">Create Doc</button>
-      <span id="output2"></span>
-    </div>
+    <button id="create-doc-button">Create Doc</button>
+    <buton id="test-button">Testing</button>
+    <button id="logout-button">Logout</button>
     <script src="popup.js"></script>
-    <script src="https://apis.google.com/js/client.js"></script>
+    <script src="https://apis.google.com/js/client.js?onload=onGAPILoad"></script>
     <!-- <script src="https://apis.google.com/js/api.js"></script> -->
-    <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
   </body>
 </html>
