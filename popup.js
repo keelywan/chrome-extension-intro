@@ -145,3 +145,9 @@ function logout() {
       }
     })
 }
+
+chrome.identity.onSignInChanged.addListener(function(account, signedIn) {
+  console.log(account); 
+  console.log(signedIn);
+  console.log("Sign in status changed"); 
+})
