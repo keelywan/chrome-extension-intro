@@ -5,18 +5,6 @@
 const API_KEY = 'AIzaSyAed5yuxCNrXlEFAqSoWwAQpE3Ng95Tzl8';
 const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4", "https://docs.googleapis.com/$discovery/rest?version=v1", "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
 
-const CLIENT_ID = "1005120763196-qiv2jflnrg8or8c84q43rtv8cgcphgs7.apps.googleusercontent.com";
-const SCOPES = [
-  "https://www.googleapis.com/auth/userinfo.email", 
-  "https://www.googleapis.com/auth/drive.appdata", 
-  'https://www.googleapis.com/auth/drive',
-  'https://www.googleapis.com/auth/drive.file',
-  'https://www.googleapis.com/auth/drive.metadata',
-  "https://www.googleapis.com/auth/spreadsheets",
-  "https://www.googleapis.com/auth/documents.readonly",
-  "https://www.googleapis.com/auth/documents"
-]
-
 const NOTES_TEMPLATE_ID = '1XlcAy-vrleXBxJl5Qy_SxGUyTqcwdUIhyJI2BygpNEc';
 
 /** Initializes gapi and the button functions when script is loaded. */
