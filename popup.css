@@ -48,3 +48,7 @@ button {
   font: 1.25rem 'Roboto';
   padding: 5px 10px;
 }
+
+#footer {
+  bottom: 0;
+}
