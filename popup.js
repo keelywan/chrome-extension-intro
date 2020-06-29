@@ -4,6 +4,7 @@
 
 const API_KEY = 'AIzaSyAed5yuxCNrXlEFAqSoWwAQpE3Ng95Tzl8';
 const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4", "https://docs.googleapis.com/$discovery/rest?version=v1", "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
+const SPREADSHEET_ID = '1at_wZV-4ul2pV_VCkFu2oG9t0rhrzfEguZpt2rRzTs0';
 
 const CLIENT_ID = "1005120763196-qiv2jflnrg8or8c84q43rtv8cgcphgs7.apps.googleusercontent.com";
 const SCOPES = [
@@ -96,7 +97,6 @@ function createDoc() {
       let title = doc.title; 
       console.log('Created');
       console.log(doc);
-      document.getElementById('output2').innerHTML = title;
       const newURL = "https://docs.google.com/document/d/" + doc.documentId;
       console.log(newURL);
       // chrome.tabs.create({ url: newURL });
