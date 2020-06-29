@@ -92,6 +92,8 @@ function onGAPILoad() {
     // Don't pass client nor scope as these will init auth2, which we don't want
     apiKey: API_KEY,
     discoveryDocs: DISCOVERY_DOCS,
+    clientId: CLIENT_ID,
+    scopes: SCOPES
   }).then(function () {    
     console.log('gapi initialized')
     console.log(gapi.client);
