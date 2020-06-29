@@ -4,7 +4,6 @@
 
 const API_KEY = 'AIzaSyAed5yuxCNrXlEFAqSoWwAQpE3Ng95Tzl8';
 const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4", "https://docs.googleapis.com/$discovery/rest?version=v1", "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
-const SPREADSHEET_ID = '1at_wZV-4ul2pV_VCkFu2oG9t0rhrzfEguZpt2rRzTs0';
 
 const CLIENT_ID = "1005120763196-qiv2jflnrg8or8c84q43rtv8cgcphgs7.apps.googleusercontent.com";
 const SCOPES = [
@@ -34,16 +33,6 @@ function onGAPILoad() {
     chrome.identity.getAuthToken({interactive: true}, function(token) {
       gapi.auth.setToken({
         'access_token': token,
-      });
-
-      gapi.client.docs.documents.get({
-        documentId: SPREADSHEET_ID,
-      }).then(function(response) {
-        let doc = response.result;
-        let title = doc.title;
-        console.log('Document ' + title + ' successfully found.');
-        document.getElementById('output').innerHTML = title;
-        // console.log(`Got ${response.result.values.length} rows back`)
       });
     })
   }, function(error) {
@@ -145,84 +134,7 @@ function testing() {
 }
 
 function logout() {
-  chrome.identity.launchWebAuthFlow(
-    { 'url': 'https://accounts.google.com/logout' },
-    function(tokenUrl) {
-        responseCallback();
-    }
-  );
+  chrome.identity.getAuthToken({interactive: true}, function(cur_token) {
+    chrome.identity.removeCachedAuthToken({ token: cur_token }, function() {});
+   });
 }
-
-// const API_KEY = 'AIzaSyAed5yuxCNrXlEFAqSoWwAQpE3Ng95Tzl8';
-// const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4", "https://docs.googleapis.com/$discovery/rest?version=v1", "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
-
-// const CLIENT_ID = "1005120763196-qiv2jflnrg8or8c84q43rtv8cgcphgs7.apps.googleusercontent.com";
-// const SCOPES = [
-//       "https://www.googleapis.com/auth/userinfo.email", 
-//       "https://www.googleapis.com/auth/drive.appdata", 
-//       'https://www.googleapis.com/auth/drive',
-//       'https://www.googleapis.com/auth/drive.file',
-//       'https://www.googleapis.com/auth/drive.metadata',
-//       "https://www.googleapis.com/auth/spreadsheets",
-//       "https://www.googleapis.com/auth/documents.readonly",
-//       "https://www.googleapis.com/auth/documents"
-//     ]
-
-// function init() {
-//   gapi.load('auth2', function() {
-//     console.log('loaded');
-//     initClient();
-//   }); 
-// }
-
-// let authorizeButton = document.getElementById('authorize_button');
-// let signoutButton = document.getElementById('signout_button');
-// function initClient() {
-//   console.log("called initClient")
-//   gapi.auth2.init({
-//     apiKey: API_KEY,
-//     clientId: CLIENT_ID,
-//     discoveryDocs: DISCOVERY_DOCS,
-//     scope: SCOPES
-//   }).then(function() {
-//     console.log("gapi initialized")
-//     gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-//     document.getElementById('get-doc-button').onclick = getDoc;
-
-//     updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-//     authorizeButton.onclick = handleAuthClick;
-//     signoutButton.onclick = handleSignoutClick;
-//   })
-// }
-
-// function updateSigninStatus(isSignedIn) {
-//   if(isSignedIn) {
-//     authorizeButton.style.display = 'none';
-//     signoutButton.style.display = 'block';
-//   } else {
-//     authorizeButton.style.display = 'block';
-//     signoutButton.style.display = 'none';
-//   }
-// }
-
-// function handleAuthClick(event) {
-//   gapi.auth2.getAuthInstance().signIn();
-// }
-
-// function handleSignoutClick(event) {
-//   gapi.auth2.getAuthInstance().signOut();
-// }
-
-// function getDoc() {
-//   const docID = document.getElementById('docid').value;
-
-//     gapi.client.docs.documents.get({
-//       documentId: docID,
-//     }).then(function(response) {
-//       let doc = response.result;
-//       let title = doc.title;
-//       console.log('Document ' + title + ' successfully found.');
-//       document.getElementById('output').innerHTML = title;
-//       // console.log(`Got ${response.result.values.length} rows back`)
-//     });
-// }
