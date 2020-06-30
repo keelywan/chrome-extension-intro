@@ -125,7 +125,8 @@ function getDate() {
 
 function changeLoginStatus() {
   if(loggedIn) {
-    chrome.identity.getAuthToken({interactive: true}, function(token) {
+    console.log("Need to log out");
+    chrome.identity.getAuthToken({interactive: false}, function(token) {
       var url = 'https://accounts.google.com/o/oauth2/revoke?token=' + token;
       window.fetch(url);
 
@@ -134,7 +135,12 @@ function changeLoginStatus() {
       });
     })
   } else {
-    loggedIn = true;
+    console.log("Need to log in");
+    chrome.identity.getAuthToken({interactive: true}, function(token) {
+      gapi.auth.setToken({
+        access_token: token,
+      });
+    })
   }
   setLoginLogout();
 }
