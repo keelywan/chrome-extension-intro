@@ -91,7 +91,7 @@ function createDoc() {
 function testing() {
   let loadingIcon = document.getElementById("loading");
   loadingIcon.style.display = 'flex';
-  chrome.identity.getAuthToken({interactive: false}, function(token) {
+  chrome.identity.getAuthToken({interactive: true}, function(token) {
     loggedIn = true;
     setLoginLogout();
     gapi.auth.setToken({

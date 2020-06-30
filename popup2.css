@@ -73,3 +73,7 @@ button:hover {
   margin: 5px;
   position: absolute;
 }
+
+#logout-button {
+  display: none;
+}
