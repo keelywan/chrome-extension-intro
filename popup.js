@@ -85,6 +85,11 @@ function testing() {
   let loadingIcon = document.getElementById("loading");
   loadingIcon.style.display = 'flex';
   chrome.identity.getAuthToken({interactive: true}, function(token) {
+    console.log("got token");
+    console.log(token);
+    chrome.identity.getProfileUserInfo(function(userInfo) {
+      console.log(userInfo);
+    })
     gapi.auth.setToken({
       access_token: token,
     });
