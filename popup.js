@@ -26,6 +26,7 @@ function onGAPILoad() {
     chrome.identity.getAuthToken({interactive: true}, function(token) {
       console.log(token);
       loggedIn = true;
+      setLoginLogout();
       gapi.auth.setToken({
         access_token: token,
       });
@@ -33,7 +34,6 @@ function onGAPILoad() {
   }, function(error) {
     console.log('error', error)
   });
-  setLoginLogout();
 }
 
 /** Returns the document with the given document ID. */
