@@ -1,6 +1,7 @@
 // chrome.identity.getAuthToken({interactive: true}, function(token) {
 //   console.log('got the token', token);
 // })
+let loggedIn = false; 
 
 const API_KEY = 'AIzaSyAed5yuxCNrXlEFAqSoWwAQpE3Ng95Tzl8';
 const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4", "https://docs.googleapis.com/$discovery/rest?version=v1", "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
@@ -12,8 +13,8 @@ function onGAPILoad() {
   console.log("function called");
   // document.getElementById('get-doc-button').onclick = getDoc;
   // document.getElementById('create-doc-button').onclick = createDoc;
-  document.getElementById('test-button').onclick = testing;
-  document.getElementById('logout-button').onclick = logout;
+  document.getElementById('generate-note-button').onclick = testing;
+  document.getElementById('auth-button').onclick = changeLoginStatus;
   document.getElementById('doc-name-input').value = 'QuickNotes ' + getDate();
   gapi.client.init({
     // Don't pass client nor scope as these will init auth2, which we don't want
@@ -24,7 +25,7 @@ function onGAPILoad() {
     console.log(gapi.client);
     chrome.identity.getAuthToken({interactive: true}, function(token) {
       console.log(token);
-      setProfileInfo();
+      loggedIn = true;
       gapi.auth.setToken({
         access_token: token,
       });
@@ -32,6 +33,7 @@ function onGAPILoad() {
   }, function(error) {
     console.log('error', error)
   });
+  setLoginLogout();
 }
 
 /** Returns the document with the given document ID. */
@@ -85,8 +87,7 @@ function createDoc() {
 function testing() {
   let loadingIcon = document.getElementById("loading");
   loadingIcon.style.display = 'flex';
-  chrome.identity.getAuthToken({interactive: true}, function(token) {
-    setProfileInfo();
+  chrome.identity.getAuthToken({interactive: false}, function(token) {
     gapi.auth.setToken({
       access_token: token,
     });
@@ -122,21 +123,32 @@ function getDate() {
   return mm + '/' + dd + '/' + yyyy;
 }
 
-function logout() {
-  chrome.identity.getAuthToken({interactive: true}, function(token) {
-    var url = 'https://accounts.google.com/o/oauth2/revoke?token=' + token;
-    window.fetch(url);
+function changeLoginStatus() {
+  if(loggedIn) {
+    chrome.identity.getAuthToken({interactive: true}, function(token) {
+      var url = 'https://accounts.google.com/o/oauth2/revoke?token=' + token;
+      window.fetch(url);
 
-    chrome.identity.removeCachedAuthToken({token: token}, function (){
-      document.getElementById('logout-button').style.display = 'none';
-      document.getElementById('email').textContent = "";
-    });
-  })
+      chrome.identity.removeCachedAuthToken({token: token}, function (){
+        loggedIn = false;
+      });
+    })
+  } else {
+    loggedIn = true;
+  }
+  setLoginLogout();
 }
 
-function setProfileInfo() {
-  chrome.identity.getProfileUserInfo(function(userInfo) {
-    document.getElementById('logout-button').style.display = 'block';
-    document.getElementById('email').textContent = userInfo.email;
-  })
+function setLoginLogout() {
+  if(loggedIn) {
+    chrome.identity.getProfileUserInfo(function(userInfo) {
+      document.getElementById('auth-button').textContent = 'Logout';
+      document.getElementById('email').textContent = userInfo.email;
+      document.getElementById('generate-note-button').disabled = false;
+    })
+  } else {
+    document.getElementById('auth-button').textContent = 'Login';
+    document.getElementById('email').textContent = "";
+    document.getElementById('generate-note-button').disabled = true;
+  }
 }
