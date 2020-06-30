@@ -25,6 +25,10 @@ function onGAPILoad() {
     console.log(gapi.client);
     chrome.identity.getAuthToken({interactive: true}, function(token) {
       console.log(token);
+      if (chrome.runtime.lastError) {
+        alert(chrome.runtime.lastError.message);
+        return;
+      }
       loggedIn = true;
       setLoginLogout();
       gapi.auth.setToken({
@@ -92,6 +96,10 @@ function testing() {
   let loadingIcon = document.getElementById("loading");
   loadingIcon.style.display = 'flex';
   chrome.identity.getAuthToken({interactive: true}, function(token) {
+    if (chrome.runtime.lastError) {
+      alert(chrome.runtime.lastError.message);
+      return;
+    }
     loggedIn = true;
     setLoginLogout();
     gapi.auth.setToken({
