@@ -136,9 +136,9 @@ function logout() {
 
     chrome.identity.removeCachedAuthToken({token: token}, function (){
       loggedIn = false;
+      setLoginLogout();
     });
   })
-  setLoginLogout();
 }
 
 function setLoginLogout() {
