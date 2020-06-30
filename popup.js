@@ -152,4 +152,5 @@ function setLoginLogout() {
     document.getElementById('email').textContent = "";
     document.getElementById('generate-note-button').disabled = true;
   }
+  loggedIn = !loggedIn;
 }
