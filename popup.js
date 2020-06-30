@@ -140,6 +140,7 @@ function changeLoginStatus() {
 }
 
 function setLoginLogout() {
+  console.log(loggedIn);
   if(loggedIn) {
     chrome.identity.getProfileUserInfo(function(userInfo) {
       document.getElementById('auth-button').textContent = 'Logout';
