@@ -81,6 +81,8 @@ function createDoc() {
 
 /** Makes a copy of the notes template. */
 function testing() {
+  let loadingIcon = document.getElementById("loading");
+  loadingIcon.style.display = 'flex';
   chrome.identity.getAuthToken({interactive: true}, function(token) {
     gapi.auth.setToken({
       access_token: token,
@@ -101,6 +103,7 @@ function testing() {
       console.log(response);
       const newURL = "https://docs.google.com/document/d/" + response.result.id;
       console.log(newURL);
+      loadingIcon.style.display = 'none';
       chrome.tabs.create({url: newURL });
     })
   })
