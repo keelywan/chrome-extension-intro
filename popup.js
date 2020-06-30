@@ -13,6 +13,7 @@ function onGAPILoad() {
   // document.getElementById('get-doc-button').onclick = getDoc;
   // document.getElementById('create-doc-button').onclick = createDoc;
   document.getElementById('test-button').onclick = testing;
+  document.getElementById('logout-button').onclick = logout;
   document.getElementById('doc-name-input').value = 'QuickNotes ' + getDate();
   gapi.client.init({
     // Don't pass client nor scope as these will init auth2, which we don't want
@@ -117,4 +118,15 @@ function getDate() {
   const yyyy = today.getFullYear();
 
   return mm + '/' + dd + '/' + yyyy;
+}
+
+function logout() {
+  chrome.identity.getAuthToken({interactive: true}, function(token) {
+    var url = 'https://accounts.google.com/o/oauth2/revoke?token=' + token;
+    window.fetch(url);
+
+    chrome.identity.removeCachedAuthToken({token: token}, function (){
+      alert('removed');
+    });
+  })
 }
