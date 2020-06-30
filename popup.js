@@ -24,6 +24,7 @@ function onGAPILoad() {
     console.log(gapi.client);
     chrome.identity.getAuthToken({interactive: true}, function(token) {
       console.log(token);
+      setProfileInfo();
       gapi.auth.setToken({
         access_token: token,
       });
@@ -85,11 +86,7 @@ function testing() {
   let loadingIcon = document.getElementById("loading");
   loadingIcon.style.display = 'flex';
   chrome.identity.getAuthToken({interactive: true}, function(token) {
-    console.log("got token");
-    console.log(token);
-    chrome.identity.getProfileUserInfo(function(userInfo) {
-      console.log(userInfo);
-    })
+    setProfileInfo();
     gapi.auth.setToken({
       access_token: token,
     });
@@ -131,7 +128,15 @@ function logout() {
     window.fetch(url);
 
     chrome.identity.removeCachedAuthToken({token: token}, function (){
-      alert('removed');
+      document.getElementById('logout-button').style.display = 'none';
+      document.getElementById('email').textContent = "";
     });
+  })
+}
+
+function setProfileInfo() {
+  chrome.identity.getProfileUserInfo(function(userInfo) {
+    document.getElementById('logout-button').style.display = 'block';
+    document.getElementById('email').textContent = userInfo.email;
   })
 }
