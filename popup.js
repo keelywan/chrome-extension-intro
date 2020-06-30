@@ -110,7 +110,7 @@ function testing() {
       const newURL = "https://docs.google.com/document/d/" + response.result.id;
       console.log(newURL);
       loadingIcon.style.display = 'none';
-      chrome.tabs.create({url: newURL });
+      // chrome.tabs.create({url: newURL });
     })
   })
 }
