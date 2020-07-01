@@ -34,8 +34,16 @@ function onGAPILoad() {
       gapi.auth.setToken({
         access_token: token,
       });
-      const proxyurl = "https://cors-anywhere.herokuapp.com/";
-      fetch(proxyurl + 'https://script.google.com/macros/s/   AKfycbxAz3axeTUSzvpWSyYtR4QiliYeiB3eiPy30ns7ZTajSwRS1wY/exec', {
+
+      let headers = new Headers();
+
+      headers.append('Content-Type', 'application/json');
+      headers.append('Accept', 'application/json');
+      headers.append('Origin', 'https://script.google.com/macros/s/   AKfycbxAz3axeTUSzvpWSyYtR4QiliYeiB3eiPy30ns7ZTajSwRS1wY/exec');
+      fetch('https://script.google.com/macros/s/   AKfycbxAz3axeTUSzvpWSyYtR4QiliYeiB3eiPy30ns7ZTajSwRS1wY/exec', {
+        mode: 'cors',
+        credentials: 'include',
+        headers: headers,
         method: 'POST',
         body: {
           foo: '2'
