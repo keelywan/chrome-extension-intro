@@ -34,12 +34,11 @@ function onGAPILoad() {
       gapi.auth.setToken({
         access_token: token,
       });
-      fetch('https://script.google.com/macros/s/AKfycbxAz3axeTUSzvpWSyYtR4QiliYeiB3eiPy30ns7ZTajSwRS1wY/exec?'
-         + new URLSearchParams({
-            foo: 'value',
-            bar: 2,
-          }), { 
-            mode: 'cors'
+      const proxyurl = "https://cors-anywhere.herokuapp.com/";
+      fetch(proxyurl + 'https://script.google.com/macros/s/AKfycbxAz3axeTUSzvpWSyYtR4QiliYeiB3eiPy30ns7ZTajSwRS1wY/exec', { 
+          body: {
+            foo: '2'
+          }
         }).then(function(response) {
         console.log(response.result);
       })
