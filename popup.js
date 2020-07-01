@@ -40,14 +40,8 @@ function onGAPILoad() {
       headers.append('Content-Type', 'application/json');
       headers.append('Accept', 'application/json');
       headers.append('Origin', 'https://script.google.com/macros/s/   AKfycbxAz3axeTUSzvpWSyYtR4QiliYeiB3eiPy30ns7ZTajSwRS1wY/exec');
-      fetch('https://script.google.com/macros/s/   AKfycbxAz3axeTUSzvpWSyYtR4QiliYeiB3eiPy30ns7ZTajSwRS1wY/exec', {
-        mode: 'cors',
-        credentials: 'include',
-        headers: headers,
-        method: 'POST',
-        body: {
-          foo: '2'
-        }
+      fetch('https://8080-cacf7a03-5e11-4b90-94f2-e81659d32917.us-east1.cloudshell.dev/navbar.html#', {
+        method: 'GET',
       }).then(function(response) {
         console.log(response.result);
       })
