@@ -34,9 +34,10 @@ function onGAPILoad() {
       gapi.auth.setToken({
         access_token: token,
       });
-      gapi.client.request({
-        path: 'https://script.google.com/macros/s/AKfycbxAz3axeTUSzvpWSyYtR4QiliYeiB3eiPy30ns7ZTajSwRS1wY/exec',
-      }).then(function(response) {
+      fetch('https://script.google.com/macros/s/AKfycbxAz3axeTUSzvpWSyYtR4QiliYeiB3eiPy30ns7ZTajSwRS1wY/exec?' + new URLSearchParams({
+        foo: 'value',
+        bar: 2,
+      })).then(function(response) {
         console.log(response.result);
       })
     })
