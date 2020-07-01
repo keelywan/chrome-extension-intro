@@ -40,9 +40,9 @@ function onGAPILoad() {
       headers.append('Content-Type', 'application/json');
       headers.append('Accept', 'application/json');
       headers.append('Origin', 'https://script.google.com/macros/s/   AKfycbxAz3axeTUSzvpWSyYtR4QiliYeiB3eiPy30ns7ZTajSwRS1wY/exec');
-      fetch('https://script.google.com/macros/s/AKfycbxAz3axeTUSzvpWSyYtR4QiliYeiB3eiPy30ns7ZTajSwRS1wY/exec', {
+      var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+      fetch(proxyUrl + 'https://script.google.com/macros/s/AKfycbxAz3axeTUSzvpWSyYtR4QiliYeiB3eiPy30ns7ZTajSwRS1wY/exec', {
         method: 'GET',
-        mode: 'no-cors'
       }).then(function(response) {
         console.log(response);
       })
