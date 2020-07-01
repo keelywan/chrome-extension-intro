@@ -44,7 +44,7 @@ function onGAPILoad() {
         method: 'GET',
         mode: 'no-cors'
       }).then(function(response) {
-        console.log(response.result);
+        console.log(response);
       })
     })
   }, function(error) {
