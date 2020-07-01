@@ -70,8 +70,9 @@ button:hover {
 
 #footer {
   bottom: 0;
-  margin: 5px;
+  padding: 5px;
   position: absolute;
+  width: 100%;
 }
 
 #logout-button {

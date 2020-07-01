@@ -26,7 +26,7 @@ function onGAPILoad() {
     chrome.identity.getAuthToken({interactive: true}, function(token) {
       console.log(token);
       if (chrome.runtime.lastError) {
-        alert(chrome.runtime.lastError.message);
+        // alert(chrome.runtime.lastError.message);
         return;
       }
       loggedIn = true;
@@ -97,7 +97,8 @@ function testing() {
   loadingIcon.style.display = 'flex';
   chrome.identity.getAuthToken({interactive: true}, function(token) {
     if (chrome.runtime.lastError) {
-      alert(chrome.runtime.lastError.message);
+      alert("Sorry, you did not authorize access. We were unable to generate your quicknote.");
+      loadingIcon.style.display = 'none';
       return;
     }
     loggedIn = true;
