@@ -13,8 +13,8 @@ function onGAPILoad() {
   console.log("function called");
   // document.getElementById('get-doc-button').onclick = getDoc;
   // document.getElementById('create-doc-button').onclick = createDoc;
-  document.getElementById('generate-note-button').onclick = testing;
-  document.getElementById('logout-button').onclick = logout;
+  document.getElementById('generate-note-btn').onclick = testing;
+  document.getElementById('logout-btn').onclick = logout;
   document.getElementById('doc-name-input').value = 'QuickNotes ' + getDate();
   gapi.client.init({
     // Don't pass client nor scope as these will init auth2, which we don't want
@@ -163,12 +163,12 @@ function setLoginLogout() {
   console.log(loggedIn);
   if(loggedIn) {
     chrome.identity.getProfileUserInfo(function(userInfo) {
-      document.getElementById('logout-button').style.display = 'inline';
+      document.getElementById('logout-btn').style.display = 'inline';
       document.getElementById('email').textContent = userInfo.email;
       // document.getElementById('generate-note-button').disabled = false;
     })
   } else {
-    document.getElementById('logout-button').style.display = 'none';
+    document.getElementById('logout-btn').style.display = 'none';
     document.getElementById('email').textContent = "";
     // document.getElementById('generate-note-button').disabled = true;
   }
