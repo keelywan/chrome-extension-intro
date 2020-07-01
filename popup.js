@@ -35,11 +35,12 @@ function onGAPILoad() {
         access_token: token,
       });
       const proxyurl = "https://cors-anywhere.herokuapp.com/";
-      fetch(proxyurl + 'https://script.google.com/macros/s/AKfycbxAz3axeTUSzvpWSyYtR4QiliYeiB3eiPy30ns7ZTajSwRS1wY/exec', { 
-          body: {
-            foo: '2'
-          }
-        }).then(function(response) {
+      fetch(proxyurl + 'https://script.google.com/macros/s/   AKfycbxAz3axeTUSzvpWSyYtR4QiliYeiB3eiPy30ns7ZTajSwRS1wY/exec', {
+        method: 'POST',
+        body: {
+          foo: '2'
+        }
+      }).then(function(response) {
         console.log(response.result);
       })
     })
