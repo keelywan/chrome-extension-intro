@@ -34,27 +34,7 @@ function onGAPILoad() {
       gapi.auth.setToken({
         access_token: token,
       });
-
-       var updateObject = {
-        documentId: '1at_wZV-4ul2pV_VCkFu2oG9t0rhrzfEguZpt2rRzTs0',
-        resource: {
-          requests: [{
-            insertText: {
-              text: "Keely Wan",
-              location: {
-                index: 1, // Modified
-              },
-            },
-          }],
-        },
-      };
-      gapi.client.docs.documents.batchUpdate(updateObject)
-      .then(function(res) { // Modified
-        console.log(res);
-      },function(err) {
-        console.error(err);
-      });
-      })
+    })
   }, function(error) {
     console.log('error', error)
   });
@@ -143,6 +123,41 @@ function testing() {
       const newURL = "https://docs.google.com/document/d/" + response.result.id;
       console.log(newURL);
       loadingIcon.style.display = 'none';
+
+      var updateObject = {
+        documentId: response.result.id,
+        resource: {
+          requests: [{
+            replaceAllText: {
+              replaceText: "Cornell University",
+              containsText: {
+                text: "[UNIVERSITY]",
+                matchCase: true
+              }
+            },
+            replaceAllText: {
+              replaceText: "CS4410",
+              containsText: {
+                text: "[COURSE_CODE]",
+                matchCase: true
+              }
+            },
+            replaceAllText: {
+              replaceText: "Professor Alvisi",
+              containsText: {
+                text: "[PROFESSOR]",
+                matchCase: true
+              }
+            }
+          }],
+        },
+      };
+      gapi.client.docs.documents.batchUpdate(updateObject)
+      .then(function(res) { // Modified
+        console.log(res);
+      },function(err) {
+        console.error(err);
+      });
       // chrome.tabs.create({url: newURL });
     })
   })
