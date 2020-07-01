@@ -35,22 +35,26 @@ function onGAPILoad() {
         access_token: token,
       });
 
-      let headers = new Headers();
-
-      headers.append('Content-Type', 'application/json');
-      headers.append('Accept', 'application/json');
-      headers.append('Origin', 'https://script.google.com/macros/s/   AKfycbxAz3axeTUSzvpWSyYtR4QiliYeiB3eiPy30ns7ZTajSwRS1wY/exec');
-      var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-      fetch(proxyUrl + 'https://script.google.com/macros/s/AKfycbxAz3axeTUSzvpWSyYtR4QiliYeiB3eiPy30ns7ZTajSwRS1wY/exec', {
-        method: 'POST',
-        body: {
-          boo: 'Hello',
-          foo: 2
-        }
-      }).then(function(response) {
-        console.log(response);
+       var updateObject = {
+        documentId: '1at_wZV-4ul2pV_VCkFu2oG9t0rhrzfEguZpt2rRzTs0',
+        resource: {
+          requests: [{
+            insertText: {
+              text: "Keely Wan",
+              location: {
+                index: 1, // Modified
+              },
+            },
+          }],
+        },
+      };
+      gapi.client.docs.documents.batchUpdate(updateObject)
+      .then(function(res) { // Modified
+        console.log(res);
+      },function(err) {
+        console.error(err);
+      });
       })
-    })
   }, function(error) {
     console.log('error', error)
   });
