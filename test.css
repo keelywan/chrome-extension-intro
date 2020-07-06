@@ -67,6 +67,10 @@ button:hover {
   cursor: pointer;
 }
 
+#loading {
+  display: none;
+}
+
 #footer {
   bottom: 0;
   flex-direction: row;

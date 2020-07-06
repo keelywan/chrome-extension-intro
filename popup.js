@@ -93,8 +93,8 @@ function createDoc() {
 
 /** Makes a copy of the notes template. */
 function testing() {
-  let loadingIcon = document.getElementById("loading");
-  loadingIcon.style.display = 'flex';
+  // let loadingIcon = document.getElementById("loading");
+  // loadingIcon.style.display = 'flex';
   chrome.identity.getAuthToken({interactive: true}, function(token) {
     if (chrome.runtime.lastError) {
       alert("Sorry, you did not authorize access. We were unable to generate your quicknote.");
@@ -117,7 +117,7 @@ function testing() {
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4) {
         console.log("RESPONSE GOTTEN");
-          console.log('xhr response: '+ xhr.responseText);
+        console.log('xhr response: '+ xhr.responseText);
       }
     }
     xhr.send();
@@ -208,11 +208,13 @@ function setLoginLogout() {
     chrome.identity.getProfileUserInfo(function(userInfo) {
       document.getElementById('logout-btn').style.display = 'inline';
       document.getElementById('email').textContent = userInfo.email;
+      document.getElementById('user-info').style.display = 'block';
       // document.getElementById('generate-note-button').disabled = false;
     })
   } else {
     document.getElementById('logout-btn').style.display = 'none';
     document.getElementById('email').textContent = "";
+    document.getElementById('user-info').style.display = 'none';
     // document.getElementById('generate-note-button').disabled = true;
   }
   loggedIn = !loggedIn;
