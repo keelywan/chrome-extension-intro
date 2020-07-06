@@ -110,12 +110,26 @@ function testing() {
     if(docName === "") {
       docName = 'QuickNotes ' + getDate();
     }
-    gapi.client.request({
-      path: 'https://kjwan-step-2020.appspot.com/data', 
-      method: 'POST',
-    }).then(function(response) {
-      console.log(response);
-    })
+    const req = new XMLHttpRequest();
+    const baseUrl = "https://kjwan-step-2020.appspot.com/data";
+    // const urlParams = `email=${email}&password=${pwd}`;
+
+    req.open("POST", baseUrl, true);
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    // req.send(urlParams);
+
+    req.onreadystatechange = function() { // Call a function when the state changes.
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            console.log("Got response 200!");
+        }
+        console.log("ready state changed");
+    }
+    // gapi.client.request({
+    //   path: 'https://kjwan-step-2020.appspot.com/data', 
+    //   method: 'POST',
+    // }).then(function(response) {
+    //   console.log(response);
+    // })
     // gapi.client.request({
     //   path: 'https://www.googleapis.com/drive/v3/files/fileId/copy',
     //   method: 'POST',
