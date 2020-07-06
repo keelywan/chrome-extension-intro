@@ -112,7 +112,7 @@ function testing() {
     }
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://kjwan-step-2020.appspot.com/data", true);
+    xhr.open("POST", "https://8080-cacf7a03-5e11-4b90-94f2-e81659d32917.us-east1.cloudshell.dev/data", true);
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4) {
