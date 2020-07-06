@@ -31,6 +31,14 @@ function onGAPILoad() {
   }).then(function () {
     console.log('gapi initialized')
     console.log(gapi.client);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://kjwan-step-2020.appspot.com/data', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function () {
+      console.log("REQUEST LOADED");
+    }
+    xhr.send();
     chrome.identity.getAuthToken({interactive: true}, function(token) {
       gapi.auth.setToken({
         'access_token': token,
