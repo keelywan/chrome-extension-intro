@@ -110,56 +110,61 @@ function testing() {
     if(docName === "") {
       docName = 'QuickNotes ' + getDate();
     }
-
     gapi.client.request({
-      path: 'https://www.googleapis.com/drive/v3/files/fileId/copy',
+      path: 'https://8080-cacf7a03-5e11-4b90-94f2-e81659d32917.us-east1.cloudshell.dev/data', 
       method: 'POST',
-      params: {fileId: NOTES_TEMPLATE_ID},
-      body: {
-        name: docName,
-      }
     }).then(function(response) {
       console.log(response);
-      const newURL = "https://docs.google.com/document/d/" + response.result.id;
-      console.log(newURL);
-      loadingIcon.style.display = 'none';
-
-      var updateObject = {
-        documentId: response.result.id,
-        resource: {
-          requests: [{
-            replaceAllText: {
-              replaceText: "Cornell University",
-              containsText: {
-                text: "[UNIVERSITY]",
-                matchCase: true
-              }
-            },
-            replaceAllText: {
-              replaceText: "CS4410",
-              containsText: {
-                text: "[COURSE_CODE]",
-                matchCase: true
-              }
-            },
-            replaceAllText: {
-              replaceText: "Professor Alvisi",
-              containsText: {
-                text: "[PROFESSOR]",
-                matchCase: true
-              }
-            }
-          }],
-        },
-      };
-      gapi.client.docs.documents.batchUpdate(updateObject)
-      .then(function(res) { // Modified
-        console.log(res);
-      },function(err) {
-        console.error(err);
-      });
-      // chrome.tabs.create({url: newURL });
     })
+    // gapi.client.request({
+    //   path: 'https://www.googleapis.com/drive/v3/files/fileId/copy',
+    //   method: 'POST',
+    //   params: {fileId: NOTES_TEMPLATE_ID},
+    //   body: {
+    //     name: docName,
+    //   }
+    // }).then(function(response) {
+    //   console.log(response);
+    //   const newURL = "https://docs.google.com/document/d/" + response.result.id;
+    //   console.log(newURL);
+    //   loadingIcon.style.display = 'none';
+
+    //   var updateObject = {
+    //     documentId: response.result.id,
+    //     resource: {
+    //       requests: [{
+    //         replaceAllText: {
+    //           replaceText: "Cornell University",
+    //           containsText: {
+    //             text: "[UNIVERSITY]",
+    //             matchCase: true
+    //           }
+    //         },
+    //         replaceAllText: {
+    //           replaceText: "CS4410",
+    //           containsText: {
+    //             text: "[COURSE_CODE]",
+    //             matchCase: true
+    //           }
+    //         },
+    //         replaceAllText: {
+    //           replaceText: "Professor Alvisi",
+    //           containsText: {
+    //             text: "[PROFESSOR]",
+    //             matchCase: true
+    //           }
+    //         }
+    //       }],
+    //     },
+    //   };
+    //   gapi.client.docs.documents.batchUpdate(updateObject)
+    //   .then(function(res) { // Modified
+    //     console.log(res);
+    //   },function(err) {
+    //     console.error(err);
+    //   });
+    //   // chrome.tabs.create({url: newURL });
+    // })
   })
 }
 
