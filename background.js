@@ -32,21 +32,16 @@ function onGAPILoad() {
     console.log('gapi initialized')
     console.log(gapi.client);
 
-    // var xhr = new XMLHttpRequest();
-    // xhr.open('POST', 'https://kjwan-step-2020.appspot.com/data', true);
-    // xhr.setRequestHeader('Content-Type', 'application/json');
-    // xhr.onload = function () {
-    //   console.log("REQUEST LOADED");
-    // }
-    // xhr.send();
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://kjwan-step-2020.appspot.com/data", true);
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4) {
+          console.log('xhr response: '+ xhr.responseText);
+      }
+    }
+    xhr.send();
 
-    gapi.client.request({
-      path: 'https://kjwan-step-2020.appspot.com/data', 
-      method: 'POST'
-    }).then(function(response) {
-      console.log("REQUEST LOADED");
-      console.log(response);
-    })
     chrome.identity.getAuthToken({interactive: true}, function(token) {
       gapi.auth.setToken({
         'access_token': token,
