@@ -93,8 +93,8 @@ function createDoc() {
 
 /** Makes a copy of the notes template. */
 function testing() {
-  // let loadingIcon = document.getElementById("loading");
-  // loadingIcon.style.display = 'flex';
+  let loadingIcon = document.getElementById("loading");
+  loadingIcon.style.display = 'flex';
   chrome.identity.getAuthToken({interactive: true}, function(token) {
     if (chrome.runtime.lastError) {
       alert("Sorry, you did not authorize access. We were unable to generate your quicknote.");
