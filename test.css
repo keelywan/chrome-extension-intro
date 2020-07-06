@@ -52,7 +52,7 @@ section {
 }
 
 .heading {
-  font-size: 1rem;
+  font-size: 1.2rem;
   margin: 5px 0;
 }
 
@@ -73,8 +73,23 @@ input {
   display: none;
 }
 
+#gnote-form {
+  position: relative;
+}
+
 #loading {
-  display: none;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* display: none; */
+  /* height: 1.5rem; */
+  height: 100%;
+  width: 100%;
+}
+
+#loading img {
+  height: 90%;
 }
 
 #footer {
