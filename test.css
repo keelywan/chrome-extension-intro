@@ -57,7 +57,8 @@ section {
   margin: 5px 0;
 }
 
-button {
+button,
+input {
   font-size: inherit;
   padding: 5px 10px;
 }
