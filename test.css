@@ -1,7 +1,6 @@
 body {
   font-family: 'Roboto';
   font-size: 1rem;
-  height: 320px;
   margin: 0;
   position: relative;
   width: 325px;
@@ -67,15 +66,17 @@ button:hover {
   cursor: pointer;
 }
 
+#user-info {
+  display: none;
+}
+
 #loading {
   display: none;
 }
 
 #footer {
-  bottom: 0;
   flex-direction: row;
   margin: 0;
-  position: absolute;
 }
 
 #footer button:not(:first-child) {
