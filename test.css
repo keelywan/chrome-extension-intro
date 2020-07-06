@@ -73,23 +73,23 @@ input {
   display: none;
 }
 
-#gnote-form {
+#gnote-card {
   position: relative;
 }
 
 #loading {
-  position: absolute;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  /* display: none; */
-  /* height: 1.5rem; */
+  display: none;
   height: 100%;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 0;
   width: 100%;
 }
 
 #loading img {
-  height: 90%;
+  height: 30%;
 }
 
 #footer {
