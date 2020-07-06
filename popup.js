@@ -111,7 +111,7 @@ function testing() {
       docName = 'QuickNotes ' + getDate();
     }
     gapi.client.request({
-      path: 'https://8080-cacf7a03-5e11-4b90-94f2-e81659d32917.us-east1.cloudshell.dev/data', 
+      path: 'https://kjwan-step-2020.appspot.com/data', 
       method: 'POST',
     }).then(function(response) {
       console.log(response);
