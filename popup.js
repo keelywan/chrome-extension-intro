@@ -153,11 +153,7 @@ function testing() {
     //   URL.revokeObjectURL(downloadUrl);
     // })
 
-    gapi.client.request({
-      path: 'https://docs.google.com/feeds/download/documents/export/Export?id=1at_wZV-4ul2pV_VCkFu2oG9t0rhrzfEguZpt2rRzTs0&exportFormat=pdf'
-    }).then(function(response) {
-      console.log("GOT A RESPONSE");
-    })
+    window.open('https://docs.google.com/feeds/download/documents/export/Export?id=1at_wZV-4ul2pV_VCkFu2oG9t0rhrzfEguZpt2rRzTs0&exportFormat=pdf');
 
 
     // gapi.client.request({
