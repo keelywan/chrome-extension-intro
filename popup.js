@@ -157,6 +157,8 @@ function testing() {
       fields: 'exportLinks'
     }).then(function(response) {
       console.log(response);
+      window.open(response.result.exportLinks.application/pdf);
+      loadingIcon.style.display = 'none';
     })
 
     // gapi.client.request({
