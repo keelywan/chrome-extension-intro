@@ -128,10 +128,11 @@ function testing() {
     }).then(function(response) {
       console.log("RESPONSE");
       console.log(response);
-      let a = document.createElement("a");
-      a.href = "data:application/octet-stream;base64,"+response.body;
-      a.download = "documentName.pdf"
-      a.click();
+      let pdfWindow = window.open("")
+      pdfWindow.document.write(
+          "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
+          encodeURI(response.body) + "'></iframe>"
+      )
     })
 
 
