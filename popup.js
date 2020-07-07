@@ -152,9 +152,12 @@ function testing() {
     //   document.body.removeChild(downloadLink);
     //   URL.revokeObjectURL(downloadUrl);
     // })
-
-    window.open('https://docs.google.com/feeds/download/documents/export/Export?id=1at_wZV-4ul2pV_VCkFu2oG9t0rhrzfEguZpt2rRzTs0&exportFormat=pdf');
-
+    gapi.client.drive.files.get({
+      fileId: '1at_wZV-4ul2pV_VCkFu2oG9t0rhrzfEguZpt2rRzTs0',
+      fields: 'exportLinks'
+    }).then(function(response) {
+      console.log(response);
+    })
 
     // gapi.client.request({
     //   path: 'https://kjwan-step-2020.appspot.com/data', 
