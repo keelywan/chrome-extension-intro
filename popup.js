@@ -124,7 +124,7 @@ function testing() {
     
     gapi.client.drive.files.export({
       fileId: '1at_wZV-4ul2pV_VCkFu2oG9t0rhrzfEguZpt2rRzTs0',
-      mimeType: 'application/pdf'
+      mimeType: 'text/plain'
     }).then(function(response) {
       console.log("RESPONSE");
       console.log(response);
@@ -133,7 +133,7 @@ function testing() {
       downloadLink.download = 'name_to_give_saved_file.pdf';
 
       // convert downloaded data to a Blob
-      var blob = new Blob([response.body], { type: 'application/pdf' });
+      var blob = new Blob([response.body], { type: 'text/plain' });
 
       // create an object URL from the Blob
       var URL = window.URL || window.webkitURL;
