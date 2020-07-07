@@ -130,7 +130,7 @@ function testing() {
       console.log(response);
       var downloadLink      = document.createElement('a');
       downloadLink.target   = '_blank';
-      downloadLink.download = 'name_to_give_saved_file.pdf';
+      downloadLink.download = 'name_to_give_saved_file.txt';
 
       // convert downloaded data to a Blob
       var blob = new Blob([response.body], { type: 'text/plain' });
