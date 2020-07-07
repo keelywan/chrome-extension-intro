@@ -122,35 +122,41 @@ function testing() {
     // }
     // xhr.send();
     
-    gapi.client.drive.files.export({
-      fileId: '1at_wZV-4ul2pV_VCkFu2oG9t0rhrzfEguZpt2rRzTs0',
-      mimeType: 'text/plain'
+    // gapi.client.drive.files.export({
+    //   fileId: '1at_wZV-4ul2pV_VCkFu2oG9t0rhrzfEguZpt2rRzTs0',
+    //   mimeType: 'text/plain'
+    // }).then(function(response) {
+    //   console.log("RESPONSE");
+    //   console.log(response);
+    //   var downloadLink      = document.createElement('a');
+    //   downloadLink.target   = '_blank';
+    //   downloadLink.download = 'name_to_give_saved_file.txt';
+
+    //   // convert downloaded data to a Blob
+    //   var blob = new Blob([response.body], { type: 'text/plain' });
+
+    //   // create an object URL from the Blob
+    //   var URL = window.URL || window.webkitURL;
+    //   var downloadUrl = URL.createObjectURL(blob);
+
+    //   // set object URL as the anchor's href
+    //   downloadLink.href = downloadUrl;
+
+    //   // append the anchor to document body
+    //   document.getElementsByTagName('body')[0].appendChild(downloadLink);
+
+    //   // fire a click event on the anchor
+    //   downloadLink.click();
+
+    //   // cleanup: remove element and revoke object URL
+    //   document.body.removeChild(downloadLink);
+    //   URL.revokeObjectURL(downloadUrl);
+    // })
+
+    gapi.client.request({
+      path: 'https://docs.google.com/feeds/download/documents/export/Export?id=1at_wZV-4ul2pV_VCkFu2oG9t0rhrzfEguZpt2rRzTs0&exportFormat=pdf'
     }).then(function(response) {
-      console.log("RESPONSE");
-      console.log(response);
-      var downloadLink      = document.createElement('a');
-      downloadLink.target   = '_blank';
-      downloadLink.download = 'name_to_give_saved_file.txt';
-
-      // convert downloaded data to a Blob
-      var blob = new Blob([response.body], { type: 'text/plain' });
-
-      // create an object URL from the Blob
-      var URL = window.URL || window.webkitURL;
-      var downloadUrl = URL.createObjectURL(blob);
-
-      // set object URL as the anchor's href
-      downloadLink.href = downloadUrl;
-
-      // append the anchor to document body
-      document.getElementsByTagName('body')[0].appendChild(downloadLink);
-
-      // fire a click event on the anchor
-      downloadLink.click();
-
-      // cleanup: remove element and revoke object URL
-      document.body.removeChild(downloadLink);
-      URL.revokeObjectURL(downloadUrl);
+      console.log("GOT A RESPONSE");
     })
 
 
