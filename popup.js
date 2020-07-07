@@ -122,19 +122,18 @@ function testing() {
     // }
     // xhr.send();
     
-    // gapi.client.drive.files.export({
-    //   fileId: '1at_wZV-4ul2pV_VCkFu2oG9t0rhrzfEguZpt2rRzTs0',
-    //   mimeType: 'application/pdf'
-    // }).then(function(response) {
-    //   console.log("RESPONSE");
-    //   console.log(response);
-    // })
-
-    gapi.client.request({
-      path: 'http://docs.google.com/document/d/1at_wZV-4ul2pV_VCkFu2oG9t0rhrzfEguZpt2rRzTs0/export?format=pdf'
+    gapi.client.drive.files.export({
+      fileId: '1at_wZV-4ul2pV_VCkFu2oG9t0rhrzfEguZpt2rRzTs0',
+      mimeType: 'application/pdf'
     }).then(function(response) {
+      console.log("RESPONSE");
       console.log(response);
+      let a = document.createElement("a");
+      a.href = "data:application/octet-stream;base64,"+response.body;
+      a.download = "documentName.pdf"
+      a.click();
     })
+
 
     // gapi.client.request({
     //   path: 'https://kjwan-step-2020.appspot.com/data', 
