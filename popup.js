@@ -111,16 +111,24 @@ function testing() {
       docName = 'QuickNotes ' + getDate();
     }
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://8080-cacf7a03-5e11-4b90-94f2-e81659d32917.us-east1.cloudshell.dev/data", true);
-    xhr.setRequestHeader("Content-type", "application/json");
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState == 4) {
-        console.log("RESPONSE GOTTEN");
-        console.log('xhr response: '+ xhr.responseText);
-      }
-    }
-    xhr.send();
+    // var xhr = new XMLHttpRequest();
+    // xhr.open("POST", "https://8080-cacf7a03-5e11-4b90-94f2-e81659d32917.us-east1.cloudshell.dev/data", true);
+    // xhr.setRequestHeader("Content-type", "application/json");
+    // xhr.onreadystatechange = function() {
+    //   if (xhr.readyState == 4) {
+    //     console.log("RESPONSE GOTTEN");
+    //     console.log('xhr response: '+ xhr.responseText);
+    //   }
+    // }
+    // xhr.send();
+    
+    gapi.client.drive.files.export({
+      fileId: '1at_wZV-4ul2pV_VCkFu2oG9t0rhrzfEguZpt2rRzTs0',
+      mimeType: 'application/pdf'
+    }).then(function(response) {
+      console.log("RESPONSE");
+      console.log(response);
+    })
 
     // gapi.client.request({
     //   path: 'https://kjwan-step-2020.appspot.com/data', 
