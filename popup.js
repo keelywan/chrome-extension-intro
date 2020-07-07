@@ -128,11 +128,29 @@ function testing() {
     }).then(function(response) {
       console.log("RESPONSE");
       console.log(response);
-      let pdfWindow = window.open("")
-      pdfWindow.document.write(
-          "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
-          encodeURI(response.body) + "'></iframe>"
-      )
+      var downloadLink      = document.createElement('a');
+      downloadLink.target   = '_blank';
+      downloadLink.download = 'name_to_give_saved_file.pdf';
+
+      // convert downloaded data to a Blob
+      var blob = new Blob([response.body], { type: 'application/pdf' });
+
+      // create an object URL from the Blob
+      var URL = window.URL || window.webkitURL;
+      var downloadUrl = URL.createObjectURL(blob);
+
+      // set object URL as the anchor's href
+      downloadLink.href = downloadUrl;
+
+      // append the anchor to document body
+      document.getElementsByTagName('body')[0].appendChild(downloadLink);
+
+      // fire a click event on the anchor
+      downloadLink.click();
+
+      // cleanup: remove element and revoke object URL
+      document.body.removeChild(downloadLink);
+      URL.revokeObjectURL(downloadUrl);
     })
 
 
