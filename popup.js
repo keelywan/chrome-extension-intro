@@ -122,16 +122,16 @@ function testing() {
     // }
     // xhr.send();
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://kjwan-step-2020.appspot.com/personality-data?type=INTJ", true);
-    xhr.setRequestHeader("Content-type", "application/json");
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState == 4) {
-        console.log("RESPONSE GOTTEN");
-        console.log('xhr response: '+ xhr.responseText);
-      }
-    }
-    xhr.send();
+    // var xhr = new XMLHttpRequest();
+    // xhr.open("POST", "https://kjwan-step-2020.appspot.com/personality-data?type=INTJ", true);
+    // xhr.setRequestHeader("Content-type", "application/json");
+    // xhr.onreadystatechange = function() {
+    //   if (xhr.readyState == 4) {
+    //     console.log("RESPONSE GOTTEN");
+    //     console.log('xhr response: '+ xhr.responseText);
+    //   }
+    // }
+    // xhr.send();
     
     // gapi.client.drive.files.export({
     //   fileId: '1at_wZV-4ul2pV_VCkFu2oG9t0rhrzfEguZpt2rRzTs0',
@@ -178,55 +178,41 @@ function testing() {
     // }).then(function(response) {
     //   console.log(response);
     // })
-    // gapi.client.request({
-    //   path: 'https://www.googleapis.com/drive/v3/files/fileId/copy',
-    //   method: 'POST',
-    //   params: {fileId: NOTES_TEMPLATE_ID},
-    //   body: {
-    //     name: docName,
-    //   }
-    // }).then(function(response) {
-    //   console.log(response);
-    //   const newURL = "https://docs.google.com/document/d/" + response.result.id;
-    //   console.log(newURL);
-    //   loadingIcon.style.display = 'none';
+    gapi.client.request({
+      path: 'https://www.googleapis.com/drive/v3/files/fileId/copy',
+      method: 'POST',
+      params: {fileId: NOTES_TEMPLATE_ID},
+      body: {
+        name: docName,
+      }
+    }).then(function(response) {
+      console.log(response);
+      const newURL = "https://docs.google.com/document/d/" + response.result.id;
+      console.log(newURL);
+      loadingIcon.style.display = 'none';
 
-    //   var updateObject = {
-    //     documentId: response.result.id,
-    //     resource: {
-    //       requests: [{
-    //         replaceAllText: {
-    //           replaceText: "Cornell University",
-    //           containsText: {
-    //             text: "[UNIVERSITY]",
-    //             matchCase: true
-    //           }
-    //         },
-    //         replaceAllText: {
-    //           replaceText: "CS4410",
-    //           containsText: {
-    //             text: "[COURSE_CODE]",
-    //             matchCase: true
-    //           }
-    //         },
-    //         replaceAllText: {
-    //           replaceText: "Professor Alvisi",
-    //           containsText: {
-    //             text: "[PROFESSOR]",
-    //             matchCase: true
-    //           }
-    //         }
-    //       }],
-    //     },
-    //   };
-    //   gapi.client.docs.documents.batchUpdate(updateObject)
-    //   .then(function(res) { // Modified
-    //     console.log(res);
-    //   },function(err) {
-    //     console.error(err);
-    //   });
-    //   // chrome.tabs.create({url: newURL });
-    // })
+      var updateObject = {
+        documentId: response.result.id,
+        resource: {
+          requests: [{
+            replaceAllText: {
+              replaceText: "7/2",
+              containsText: {
+                text: "[DATE]",
+                matchCase: true
+              }
+            },
+          }],
+        },
+      };
+      gapi.client.docs.documents.batchUpdate(updateObject)
+      .then(function(res) { // Modified
+        console.log(res);
+      },function(err) {
+        console.error(err);
+      });
+      // chrome.tabs.create({url: newURL });
+    })
   })
 }
 
