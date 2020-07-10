@@ -1,0 +1,152 @@
+<%@ page import="com.google.appengine.api.blobstore.BlobstoreService" %>
+<%@ page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory" %>
+<% BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+   String uploadUrl = blobstoreService.createUploadUrl("/upload-notes"); %>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Upload PDF</title>
+    <script src="upload.js"></script>
+    <link rel="stylesheet" href="styles/upload-notes.css">
+  </head>
+  <body>
+    <h1>Upload PDF to Blobstore</h1>
+    <form method="POST" enctype="multipart/form-data" action="<%= uploadUrl %>">
+      <div class="form-item">
+        <label for="title">Title:</label>
+        <input type="text" name="title">
+      </div>
+      <div class="form-item">
+        <label for="school">School:</label>
+        <input type="text" name="school">
+      </div>
+      <div class="form-item">
+        <label for="course">Course:</label>
+        <input type="text" name="course">
+      </div>
+      <div class="form-item">
+        <label for="other-tags">Other Tags:</label>
+        <textarea name="other-tags" cols="50" rows="5"></textarea>
+      </div>
+      <div class="form-item">
+        <label for="notes-pdf">Select file:</label>
+        <iframe id="preview" height="400" width="350"></iframe>
+        <br>
+        <input type="file"
+              accept="application/pdf"
+              name="notes-pdf"
+              onchange="previewFile(this)"
+              required>
+        </div>
+      <button>Submit</button>
+    </form>
+  </body>
+</html>
+
+
+import java.io.IOException;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import com.google.appengine.api.blobstore.BlobInfoFactory;
+import com.google.appengine.api.blobstore.BlobInfo;
+
+@WebServlet("/serve-notes")
+public class ServeNotesServlet extends HttpServlet {
+
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+    BlobKey blobKey = new BlobKey(request.getParameter("key"));
+    blobstoreService.serve(blobKey, response);
+  }
+}
+
+
+
+
+
+function previewFile(input) {
+  console.log(input.files);
+  if(input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('preview').src = e.target.result;
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function updateLink() {
+  const blobKey = document.getElementById('blob-key').value;
+  const url = '/serve-notes?key=' + blobKey;
+  fetch(url)
+    .then((response) => {
+      let previewFrame = document.getElementById('preview');
+      let downloadLink = document.getElementById('download');
+      console.log(response);
+      if(response.status === 200) {
+        previewFrame.src = url;
+        downloadLink.href = url;
+      }
+      else {
+        previewFrame.src = "";
+        downloadLink.href="";
+      }
+    });
+}
+
+
+.form-item {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+let loadingIcon = document.getElementById("loading");
+  loadingIcon.style.display = 'flex';
+  chrome.identity.getAuthToken({interactive: true}, function(token) {
+    if (chrome.runtime.lastError) {
+      alert("Sorry, you did not authorize access. We were unable to generate your quicknote.");
+      loadingIcon.style.display = 'none';
+      return;
+    }
+    loggedIn = true;
+    setLoginLogout();
+    gapi.auth.setToken({
+      access_token: token,
+    });
+    let docName = document.getElementById('doc-name-input').value.trim();
+    if(docName === "") {
+      docName = 'QuickNotes ' + getDate();
+    }
+
+    gapi.client.request({
+      path: COPY_FILE_URL,
+      method: 'POST',
+      params: {
+        fileId: NOTES_TEMPLATE_DOC_ID
+      },
+      body: {
+        name: docName,
+      }
+    }).then(function(response) {
+      console.log(response);
+      const newURL = GOOGLE_DOC_URL + response.result.id;
+      console.log(newURL);
+      loadingIcon.style.display = 'none';
+
+      // chrome.tabs.create({url: newURL });
+    })
+  })
+
+  const COPY_FILE_URL = 'https://www.googleapis.com/drive/v3/files/fileId/copy';
+const GOOGLE_DOC_URL = 'https://docs.google.com/document/d/';
